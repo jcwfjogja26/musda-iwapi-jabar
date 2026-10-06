@@ -39,43 +39,23 @@ export default function WelcomePopup() {
           onClick={closePopup}
           aria-label="Tutup"
         >
-          <X size={17} strokeWidth={1.8} />
+          <X size={16} strokeWidth={1.8} />
         </button>
 
-        <div className="welcome-popup-glow welcome-popup-glow-one" />
-        <div className="welcome-popup-glow welcome-popup-glow-two" />
-
         <div className="welcome-popup-content">
-          <div className="welcome-popup-kicker">
-            <span>MUSDA IWAPI</span>
-            <span className="welcome-popup-dot" />
-            <span>JAWA BARAT</span>
-          </div>
-
           <div className="welcome-popup-main">
-            <p className="welcome-popup-eyebrow">
-              MUSYAWARAH DAERAH IWAPI
-            </p>
-
             <h2>
-              Memperkuat fondasi,
+              MUSDA X
               <br />
-              <em>melangkah bersama.</em>
+              <span>JAWA BARAT</span>
+              <p>DPD IWAPI 2026</p>
             </h2>
 
-            <p className="welcome-popup-description">
-              Selamat datang di website resmi MUSDA IWAPI Jawa Barat.
-              Temukan informasi acara, marketplace, partnership,
-              dan lakukan pendaftaran Anda.
-            </p>
+            
 
             <div className="welcome-popup-date">
-              <CalendarDays size={16} strokeWidth={1.7} />
-
-              <div>
-                <span>AGENDA UTAMA</span>
-                <strong>18 November 2026</strong>
-              </div>
+              <CalendarDays size={15} strokeWidth={1.8} />
+              <span>18 November 2026</span>
             </div>
 
             <div className="welcome-popup-actions">
@@ -83,24 +63,19 @@ export default function WelcomePopup() {
                 type="button"
                 className="welcome-popup-primary"
                 onClick={handleRegister}
-                >
+              >
                 Daftar Sekarang
-                </button>
+              </button>
 
               <button
                 type="button"
                 className="welcome-popup-secondary"
                 onClick={closePopup}
               >
-                Jelajahi Landing Page
+                Lanjut ke Website
               </button>
             </div>
           </div>
-        </div>
-
-        <div className="welcome-popup-footer">
-          <span>MEMPERKUAT FONDASI TRANSFORMASI DIGITAL</span>
-          <span>EKONOMI PEREMPUAN PENGUSAHA</span>
         </div>
       </div>
     </div>

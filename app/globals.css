@@ -7664,57 +7664,56 @@ main {
 }
 
 /* =====================================================
-   WELCOME POPUP
+   WELCOME POPUP BACKDROP
 ===================================================== */
 
 .welcome-popup-backdrop {
   position: fixed;
   inset: 0;
   z-index: 9999;
-
   display: grid;
   place-items: center;
-
-  padding: 24px;
-
-  background: rgba(3, 18, 34, 0.72);
-
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-
+  padding: 20px;
+  background: rgba(3, 14, 28, 0.78);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   animation: welcomeBackdropIn 0.35s ease both;
 }
 
+/* =====================================================
+   POPUP CONTAINER (WARNA HERO SECTION)
+===================================================== */
+
 .welcome-popup {
-  width: min(760px, 100%);
+  width: min(680px, 100%);
   position: relative;
   overflow: hidden;
-
   border-radius: 24px;
-
+  
+  /* Gradient menyatu dengan tema Hero Section */
   background:
     radial-gradient(
-      circle at 92% 8%,
-      rgba(83, 177, 228, 0.24),
-      transparent 29%
+      circle at 85% 15%,
+      rgba(56, 189, 248, 0.25),
+      transparent 45%
     ),
     radial-gradient(
-      circle at 5% 95%,
-      rgba(200, 155, 60, 0.09),
-      transparent 28%
+      circle at 15% 85%,
+      rgba(14, 165, 233, 0.15),
+      transparent 40%
     ),
     linear-gradient(
-      135deg,
-      #08284d 0%,
-      #075795 55%,
-      #0a659e 100%
+      145deg,
+      #03182e 0%,
+      #06325c 50%,
+      #094880 100%
     );
 
-  color: #f7f3e8;
-
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   box-shadow:
-    0 35px 100px rgba(0, 20, 40, 0.35),
-    0 8px 30px rgba(0, 20, 40, 0.18);
+    0 30px 90px rgba(2, 12, 27, 0.5),
+    0 10px 30px rgba(0, 0, 0, 0.3);
 
   animation: welcomePopupIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -7722,12 +7721,12 @@ main {
 .welcome-popup-content {
   position: relative;
   z-index: 2;
-
-  padding: 42px 48px 38px;
+  padding: 40px 44px 36px;
+  text-align: center; /* Memastikan konten teks terpusat */
 }
 
 /* =====================================================
-   CLOSE
+   CLOSE BUTTON
 ===================================================== */
 
 .welcome-popup-close {
@@ -7735,31 +7734,22 @@ main {
   top: 18px;
   right: 18px;
   z-index: 5;
-
-  width: 34px;
-  height: 34px;
-
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
-
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 50%;
-
-  background: rgba(255, 255, 255, 0.07);
-  color: rgba(255, 255, 255, 0.78);
-
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
   cursor: pointer;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    transform 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .welcome-popup-close:hover {
-  background: rgba(255, 255, 255, 0.14);
-  color: white;
-  transform: rotate(5deg);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  transform: rotate(90deg);
 }
 
 /* =====================================================
@@ -7773,95 +7763,81 @@ main {
 }
 
 .welcome-popup-glow-one {
-  width: 250px;
-  height: 250px;
-
-  top: -155px;
-  right: -80px;
-
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 260px;
+  height: 260px;
+  top: -130px;
+  right: -70px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
 }
 
 .welcome-popup-glow-two {
-  width: 170px;
-  height: 170px;
-
-  bottom: -105px;
-  left: -65px;
-
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  width: 200px;
+  height: 200px;
+  bottom: -100px;
+  left: -50px;
+  background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 70%);
 }
 
 /* =====================================================
-   KICKER
+   KICKER & MAIN
 ===================================================== */
 
 .welcome-popup-kicker {
   display: flex;
   align-items: center;
-  gap: 9px;
-
-  color: rgba(255, 255, 255, 0.58);
-
-  font-size: 7px;
+  justify-content: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.19em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .welcome-popup-dot {
   width: 4px;
   height: 4px;
-
   border-radius: 50%;
-
-  background: #d9a441;
+  background: #38bdf8;
 }
 
-/* =====================================================
-   MAIN
-===================================================== */
-
 .welcome-popup-main {
-  max-width: 590px;
-  margin-top: 34px;
+  max-width: 540px;
+  margin: 24px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .welcome-popup-eyebrow {
-  margin-bottom: 13px;
-
-  color: #83cdf5;
-
-  font-size: 8px;
+  margin-bottom: 12px;
+  color: #7dd3fc;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.22em;
 }
 
 .welcome-popup-main h2 {
   margin: 0;
-
   font-family: var(--serif);
-
-  font-size: clamp(42px, 5vw, 62px);
-  line-height: 0.94;
-
+  font-size: clamp(32px, 4.5vw, 48px);
+  line-height: 1.1;
   font-weight: 500;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.03em;
+  color: #ffffff;
 }
 
 .welcome-popup-main h2 em {
-  color: #dcebf3;
+  color: #bae6fd;
   font-style: italic;
 }
 
 .welcome-popup-description {
-  max-width: 470px;
-
-  margin-top: 20px;
-
-  color: rgba(255, 255, 255, 0.66);
-
-  font-size: 11px;
-  line-height: 1.75;
+  max-width: 460px;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13.5px;
+  line-height: 1.6;
 }
 
 /* =====================================================
@@ -7869,110 +7845,97 @@ main {
 ===================================================== */
 
 .welcome-popup-date {
-  margin-top: 24px;
-
-  display: flex;
+  margin-top: 22px;
+  display: inline-flex;
   align-items: center;
-  gap: 11px;
+  justify-content: center;
+  gap: 10px;
+  padding: 8px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
 }
 
 .welcome-popup-date > svg {
   flex-shrink: 0;
-
-  color: #9ed8f7;
+  color: #38bdf8;
 }
 
 .welcome-popup-date div {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  align-items: flex-start;
+  gap: 1px;
 }
 
 .welcome-popup-date span {
-  color: rgba(255, 255, 255, 0.38);
-
-  font-size: 6px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.15em;
 }
 
 .welcome-popup-date strong {
-  font-family: var(--serif);
-
-  font-size: 15px;
-  font-weight: 500;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
 }
 
 /* =====================================================
-   ACTION BUTTONS (FORCE CENTER)
+   ACTION BUTTONS (CENTER ALIGNED)
 ===================================================== */
 
 .welcome-popup-actions {
-  width: 100% !important;
-  max-width: 520px !important;
-  margin-top: 42px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 14px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
 .welcome-popup-actions button {
-  width: 100% !important;
-  min-height: 58px;
+  width: 100%;
+  min-height: 48px;
   border-radius: 999px;
   font-family: var(--sans);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.015em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   cursor: pointer;
-
-  /* Menjamin isi teks & icon di dalam button berada persis di tengah */
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  text-align: center !important;
-
-  transition:
-    transform 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease,
-    box-shadow 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.25s ease;
 }
 
-
-
-/* DAFTAR SEKARANG */
-
+/* BUTTON UTAMA (PUTIH BERLESIH/ELEGANT - BEBAS WARNA GOLD) */
 .welcome-popup-primary {
-  border: 1px solid #e1aa3d;
-  background: #e1aa3d;
-  color: #08284d;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  border: none;
+  background: #ffffff;
+  color: #03182e;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .welcome-popup-primary:hover {
-  background: #edb84b;
-  border-color: #edb84b;
+  background: #e0f2fe;
   transform: translateY(-2px);
-  box-shadow: 0 13px 30px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* JELAJAHI LANDING PAGE */
-
+/* BUTTON SECONDRY (OUTLINE GLASS) */
 .welcome-popup-secondary {
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(255, 255, 255, 0.06);
-  color: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .welcome-popup-secondary:hover {
-  background: rgba(255, 255, 255, 0.11);
-  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.45);
   transform: translateY(-2px);
 }
 
@@ -7983,46 +7946,32 @@ main {
 .welcome-popup-footer {
   position: relative;
   z-index: 2;
-
-  min-height: 39px;
-
-  padding: 0 48px;
-
+  padding: 12px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-
-  background: rgba(3, 24, 48, 0.16);
-
-  color: rgba(255, 255, 255, 0.31);
-
-  font-size: 5px;
+  background: rgba(2, 12, 27, 0.3);
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 8px;
   font-weight: 700;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
 }
 
 /* =====================================================
-   ANIMATION
+   ANIMATIONS
 ===================================================== */
 
 @keyframes welcomeBackdropIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes welcomePopupIn {
   from {
     opacity: 0;
-    transform: translateY(18px) scale(0.97);
+    transform: translateY(20px) scale(0.96);
   }
-
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -8030,137 +7979,80 @@ main {
 }
 
 /* =====================================================
-   MOBILE
+   MOBILE OPTIMIZATION (DIKECILKAN SEHINGGA PROPORSIONAL)
 ===================================================== */
 
 @media (max-width: 600px) {
-
   .welcome-popup-backdrop {
-    padding: 15px;
+    padding: 16px;
   }
 
   .welcome-popup {
-    width: 100%;
-    border-radius: 19px;
+    border-radius: 20px;
+    max-width: 360px; /* Mengecilkan ukuran lebar popup di mobile */
   }
 
   .welcome-popup-content {
-    padding: 31px 24px 27px;
+    padding: 28px 20px 22px;
   }
 
   .welcome-popup-close {
-    top: 13px;
-    right: 13px;
-
-    width: 31px;
-    height: 31px;
+    top: 12px;
+    right: 12px;
+    width: 30px;
+    height: 30px;
   }
 
   .welcome-popup-kicker {
-    padding-right: 35px;
-
-    font-size: 6px;
-    letter-spacing: 0.15em;
-  }
-
-  .welcome-popup-main {
-    margin-top: 27px;
-  }
-
-  .welcome-popup-eyebrow {
-    margin-bottom: 10px;
-
-    font-size: 6.5px;
-  }
-
-  .welcome-popup-main h2 {
-    font-size: 39px;
-    line-height: 0.94;
-  }
-
-  .welcome-popup-description {
-    margin-top: 17px;
-
-    font-size: 10px;
-    line-height: 1.65;
-  }
-
-  .welcome-popup-date {
-    margin-top: 20px;
-  }
-
-  .welcome-popup-date > svg {
-    width: 15px;
-    height: 15px;
-  }
-
-  .welcome-popup-date span {
-    font-size: 5px;
-  }
-
-  .welcome-popup-date strong {
-    font-size: 14px;
-  }
-
-  .welcome-popup-actions {
-    margin-top: 24px;
-
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 7px;
-  }
-
-  .welcome-popup-primary,
-  .welcome-popup-secondary {
-    width: 100%;
-    min-height: 43px;
-
-    justify-content: center;
-
     font-size: 8px;
   }
 
-  .welcome-popup-footer {
-    min-height: 34px;
-
-    padding: 0 24px;
-
-    font-size: 4px;
-  }
-
-  .welcome-popup-footer span:last-child {
-    display: none;
-  }
-}
-
-@media (max-width: 390px) {
-
-  .welcome-popup-content {
-    padding: 27px 20px 23px;
-  }
-
   .welcome-popup-main {
-    margin-top: 24px;
+    margin-top: 16px;
+  }
+
+  .welcome-popup-eyebrow {
+    font-size: 8.5px;
+    margin-bottom: 8px;
   }
 
   .welcome-popup-main h2 {
-    font-size: 35px;
+    font-size: 26px; /* Font judul dikecilkan agar pas di layar hp */
+    line-height: 1.15;
   }
 
   .welcome-popup-description {
-    font-size: 9px;
+    margin-top: 10px;
+    font-size: 11.5px;
+    line-height: 1.5;
+  }
+
+  .welcome-popup-date {
+    margin-top: 14px;
+    padding: 6px 14px;
   }
 
   .welcome-popup-date strong {
-    font-size: 13px;
+    font-size: 11.5px;
   }
 
-  .welcome-popup-primary,
-  .welcome-popup-secondary {
-    min-height: 41px;
+  .welcome-popup-actions {
+    margin-top: 20px;
+    gap: 8px;
+  }
+
+  .welcome-popup-actions button {
+    min-height: 42px;
+    font-size: 12.5px;
   }
 
   .welcome-popup-footer {
-    padding: 0 20px;
+    padding: 10px 16px;
+    font-size: 6.5px;
+    justify-content: center;
+  }
+
+  .welcome-popup-footer span:last-child {
+    display: none; /* Menyembunyikan baris kedua footer agar ringkas */
   }
 }
