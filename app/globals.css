@@ -630,17 +630,17 @@ main {
   align-items: center;
   gap: 16px;
   margin-top: 32px;
+  width: 100%;
 }
 
-/* Base style sama persis untuk kedua button */
 .hero-button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 170px; /* Kunci lebar sama persis di desktop */
-  height: 48px; /* Kunci tinggi sama persis di desktop */
+  width: 170px;
+  height: 48px;
   padding: 0 16px;
-  border-radius: 999px;
+  border-radius: 999px !important;
   border: 2px solid transparent;
   box-sizing: border-box;
   font-size: 13px;
@@ -649,6 +649,7 @@ main {
   text-align: center;
   transition: all 0.25s ease;
   white-space: nowrap;
+  flex-shrink: 0; /* Mencegah tombol menciut di Safari iOS */
 }
 
 .hero-button-primary {
@@ -679,7 +680,7 @@ main {
 }
 
 /* =====================================================
-   RESPONSIVE MOBILE FIX (BULAT KAPSUL LENGKAP)
+   RESPONSIVE MOBILE FIX
 ===================================================== */
 @media screen and (max-width: 768px) {
   .hero-container {
@@ -726,24 +727,26 @@ main {
     white-space: nowrap;
   }
 
-  /* Kunci ukuran & lengkungan di Tablet/Mobile */
+  /* Fix Tombol Mobile Proporsional */
   .hero-actions {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     margin-top: 28px;
     width: 100%;
   }
 
-  .hero-button,
-  .hero-button-secondary {
-    width: 200px;
-    height: 30px;
-    padding: 0 8px;
+  .hero-button {
+    flex: 1;
+    max-width: 160px;
+    min-width: 120px;
+    width: auto;
+    height: 42px; /* Proporsional & nyaman ditekan di layar HP */
+    padding: 0 10px;
     font-size: 12px;
-    border-radius: 999px !important; /* Memaksa bentuk kapsul bulat di mobile */
+    border-radius: 999px !important;
   }
 }
 
@@ -752,14 +755,14 @@ main {
     font-size: 8px;
   }
 
-  /* Kunci ukuran & lengkungan di Mobile Kecil */
-  .hero-button,
-  .hero-button-secondary {
-    width: 130px;
-    height: 40px;
-    padding: 0 6px;
+  .hero-actions {
+    gap: 8px;
+  }
+
+  .hero-button {
+    height: 38px;
     font-size: 11px;
-    border-radius: 999px !important; /* Memaksa bentuk kapsul bulat di HP kecil */
+    padding: 0 6px;
   }
 }
 
