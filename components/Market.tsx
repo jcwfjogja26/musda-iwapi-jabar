@@ -73,15 +73,15 @@ export default function Market() {
               </span>
 
               <h2>
-                Ruang untuk
+                Tempat usaha
                 <br />
-                <em>berkarya bersama.</em>
+                <em>bertemu peluang.</em>
               </h2>
             </div>
           </div>
 
           <div className="market-heading-copy">
-            <span className="market-heading-number">15+</span>
+            <span className="market-heading-number">50+</span>
 
             <p>
               Temukan berbagai usaha, produk, dan brand perempuan

@@ -1,8 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, MessageCircle } from 'lucide-react';
 import ExploreCard from '@/components/explore/ExploreCard';
+
+// ⚠️ Nomor Kontak CP
+const PHONE_FITRI = '628xxxxxxxxxx';
+const PHONE_AVIE = '628xxxxxxxxxx';
+const PHONE_RIKA = '628xxxxxxxxxx';
 
 const exploreItems = [
   {
@@ -55,6 +60,10 @@ export default function ExplorePage() {
   return (
     <main className="explore-page">
       <section className="explore-hero">
+        <div className="explore-hero-nav">
+          
+        </div>
+
         <div className="explore-hero-inner">
           <div className="explore-eyebrow">
             <span />
@@ -80,9 +89,7 @@ export default function ExplorePage() {
       <section className="explore-content">
         <div className="explore-heading">
           <div>
-            <span className="section-eyebrow">
-              EXPLORE
-            </span>
+            <span className="section-eyebrow">EXPLORE</span>
 
             <h2>
               Jelajahi apa yang
@@ -93,7 +100,7 @@ export default function ExplorePage() {
 
           <p>
             Pilih salah satu kategori untuk melihat informasi
-            lebih lengkap dan temukan peluang yang sesuai
+            poin lebih lengkap dan temukan peluang yang sesuai
             dengan kebutuhan Anda.
           </p>
         </div>
@@ -113,29 +120,51 @@ export default function ExplorePage() {
           ))}
         </div>
 
+        {/* BOTTOM CONTACT BANNER DENGAN 3 CP (Fitri, Avie, Rika) */}
         <div className="explore-bottom">
           <div>
-            <span>
-              Punya pertanyaan atau kebutuhan khusus?
-            </span>
-
-            <strong>
-              Tim MUSDA siap membantu Anda.
-            </strong>
+            <span>Punya pertanyaan atau kebutuhan khusus?</span>
+            <strong>Tim MUSDA siap membantu Anda.</strong>
           </div>
 
-          <a
-            href="#contact"
-            className="explore-contact-button"
-          >
-            Hubungi Tim
-            <ArrowUpRight size={16} />
-          </a>
+          <div className="explore-bottom-contacts">
+            <a
+              href={`https://wa.me/${PHONE_FITRI}?text=Halo%20Fitri,%20saya%20ingin%20bertanya%20mengenai%20MUSDA`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="explore-bottom-btn"
+            >
+              <MessageCircle size={16} />
+              <span>Contact Fitri</span>
+            </a>
+
+            <a
+              href={`https://wa.me/${PHONE_AVIE}?text=Halo%20Avie,%20saya%20ingin%20bertanya%20mengenai%20MUSDA`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="explore-bottom-btn"
+            >
+              <MessageCircle size={16} />
+              <span>Contact Avie</span>
+            </a>
+
+            <a
+              href={`https://wa.me/${PHONE_RIKA}?text=Halo%20Rika,%20saya%20ingin%20bertanya%20mengenai%20Hotel%20dan%20Akomodasi`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="explore-bottom-btn"
+            >
+              <MessageCircle size={16} />
+              <span>Contact Rika</span>
+            </a>
+          </div>
         </div>
 
+        {/* Navigation Button Glass di bagian bawah */}
         <div className="explore-back">
-          <a href="/">
-            ← Kembali ke Landing Page
+          <a href="/" className="explore-back-glass-button">
+            <ArrowLeft size={15} />
+            <span>Kembali ke Landing Page</span>
           </a>
         </div>
       </section>

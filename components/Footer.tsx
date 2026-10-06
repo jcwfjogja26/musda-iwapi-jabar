@@ -1,4 +1,8 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, MessageCircle } from "lucide-react";
+
+// ⚠️ ISIKAN NOMOR WHATSAPP ASLI DI SINI (Gunakan format 628xxxxxxxxxx)
+const PHONE_FITRI = "628xxxxxxxxxx";
+const PHONE_AVIE = "628xxxxxxxxxx";
 
 export default function Footer() {
   return (
@@ -7,7 +11,12 @@ export default function Footer() {
         <div className="footer-main">
           <div className="footer-brand-v2">
             <div className="footer-logo">
-              <span>I</span>
+              <div className="footer-logo-img">
+                <img
+                  src="/image/iwapi-jabar.png"
+                  alt="Logo IWAPI Jawa Barat"
+                />
+              </div>
               <div>
                 <strong>IWAPI</strong>
                 <small>JAWA BARAT</small>
@@ -36,6 +45,7 @@ export default function Footer() {
             <a href="/register">Registrasi</a>
           </div>
 
+          {/* KONTAK FITRI & AVIE */}
           <div className="footer-column footer-contact">
             <span>CONTACT</span>
             <p>
@@ -43,16 +53,51 @@ export default function Footer() {
               kolaborasi lainnya.
             </p>
 
-            <a href="mailto:info@iwapijabar.id">
-              Hubungi Tim
-              <ArrowUpRight size={15} />
-            </a>
+            <div className="footer-contact-buttons">
+              <a
+                href={`https://wa.me/${PHONE_FITRI}?text=Halo%20Fitri,%20saya%20ingin%20bertanya%20mengenai%20MUSDA%20IWAPI`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-contact-btn"
+              >
+                <MessageCircle size={14} />
+                <span>Contact Fitri</span>
+                <ArrowUpRight size={14} />
+              </a>
+
+              <a
+                href={`https://wa.me/${PHONE_AVIE}?text=Halo%20Avie,%20saya%20ingin%20bertanya%20mengenai%20MUSDA%20IWAPI`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-contact-btn"
+              >
+                <MessageCircle size={14} />
+                <span>Contact Avie</span>
+                <ArrowUpRight size={14} />
+              </a>
+            </div>
           </div>
         </div>
 
+        {/* FOOTER BOTTOM (STACKED) */}
         <div className="footer-bottom-v2">
-          <span>© 2026 IWAPI Jawa Barat</span>
-          <span>Powered by TactLink</span>
+          <span>© 2026 MUSDA IWAPI Jawa Barat</span>
+          
+          <div className="footer-powered">
+            <span>Powered by</span>
+            <strong>TactLink</strong>
+          </div>
+
+          <div className="footer-developer">
+            <span>Dev by</span>
+            <a
+              href="https://www.linkedin.com/in/aliyahalfitarossa"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Aliyah Alfita Rossa
+            </a>
+          </div>
         </div>
       </div>
     </footer>

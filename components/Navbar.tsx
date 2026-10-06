@@ -2,6 +2,7 @@
 
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useState } from "react";
+import Image from 'next/image';
 
 const navItems = [
   { label: "Tentang", href: "#tentang" },
@@ -19,13 +20,18 @@ export default function Navbar() {
       <header className="navbar">
         <div className="navbar-inner">
           <a href="#" className="navbar-brand">
-            <span className="navbar-logo">I</span>
+  <div className="navbar-logo-img">
+    <img
+      src="/image/iwapi-jabar.png"
+      alt="Logo IWAPI Jawa Barat"
+    />
+  </div>
 
-            <span className="navbar-brand-text">
-              <strong>IWAPI</strong>
-              <small>JAWA BARAT</small>
-            </span>
-          </a>
+  <span className="navbar-brand-text">
+    <strong>IWAPI</strong>
+    <small>JAWA BARAT</small>
+  </span>
+</a>
 
           <nav className="navbar-links">
             {navItems.map((item) => (
@@ -37,7 +43,7 @@ export default function Navbar() {
 
           <a href="/registrasi" className="navbar-cta">
             <span>Daftar Sekarang</span>
-            <ArrowRight size={16} />
+            <ArrowRight size={15} />
           </a>
 
           <button
@@ -72,7 +78,7 @@ export default function Navbar() {
                 onClick={() => setOpen(false)}
                 aria-label="Tutup menu"
               >
-                <X size={22} />
+                <X size={18} />
               </button>
             </div>
 
@@ -85,7 +91,7 @@ export default function Navbar() {
                 >
                   <span>0{index + 1}</span>
                   <strong>{item.label}</strong>
-                  <ArrowRight size={17} />
+                  <ArrowRight size={15} />
                 </a>
               ))}
             </div>
@@ -96,7 +102,7 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
             >
               Daftar Sekarang
-              <ArrowRight size={17} />
+              <ArrowRight size={15} />
             </a>
 
             <div className="mobile-menu-footer">

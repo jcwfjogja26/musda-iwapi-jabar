@@ -28,40 +28,42 @@ export default function RegistrationProgress({
   currentStep,
 }: RegistrationProgressProps) {
   return (
-    <div className="registration-progress">
-      {steps.map((step) => {
-        const active =
-          currentStep === step.number;
+    <div className="registration-progress-card">
+      <div className="registration-progress">
+        {/* Garis Abu-abu di Belakang Lingkaran */}
+        <div className="registration-progress-line" />
 
-        const completed =
-          currentStep > step.number;
+        {steps.map((step) => {
+          const active = currentStep === step.number;
+          const completed = currentStep > step.number;
 
-        return (
-          <div
-            key={step.number}
-            className={[
-              'registration-progress-step',
-              active ? 'active' : '',
-              completed ? 'completed' : '',
-            ]
-              .filter(Boolean)
-              .join(' ')}
-          >
-            <div className="registration-progress-number">
-              {completed ? (
-                <Check size={15} />
-              ) : (
-                String(step.number).padStart(2, '0')
-              )}
+          return (
+            <div
+              key={step.number}
+              className={[
+                'registration-progress-step',
+                active ? 'active' : '',
+                completed ? 'completed' : '',
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              <div className="registration-progress-number">
+                {completed ? (
+                  <Check size={18} strokeWidth={2.5} />
+                ) : (
+                  step.number
+                )}
+              </div>
+
+              <div className="registration-progress-info">
+                <strong>{step.title}</strong>
+                <span>{step.description}</span>
+              </div>
             </div>
-
-            <div className="registration-progress-info">
-              <strong>{step.title}</strong>
-              <span>{step.description}</span>
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }

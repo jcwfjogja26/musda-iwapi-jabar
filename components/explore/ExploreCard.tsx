@@ -1,12 +1,13 @@
 'use client';
 
 import {
-  ArrowDown,
-  ArrowUpRight,
   Building2,
+  ChevronDown,
+  ChevronUp,
   Hotel,
   Megaphone,
-  Store,
+  MessageCircle,
+  ShoppingBag,
 } from 'lucide-react';
 
 interface ExploreCardProps {
@@ -19,11 +20,17 @@ interface ExploreCardProps {
   onToggle: () => void;
 }
 
+// ⚠️ GANTI DENGAN NOMOR WHATSAPP ASLI (Format: 628xxxxxxxxxx)
+const PHONE_FITRI = '628xxxxxxxxxx';
+const PHONE_AVIE = '628xxxxxxxxxx';
+const PHONE_RIKA = '628xxxxxxxxxx';
+
+// Pemetaan Ikon yang dipastikan aman
 const icons = {
   sponsor: Building2,
   billboard: Megaphone,
   hotel: Hotel,
-  tenant: Store,
+  tenant: ShoppingBag,
 };
 
 const detailContent = {
@@ -37,6 +44,10 @@ const detailContent = {
       'Kolaborasi dan aktivasi brand',
       'Pilihan bentuk partnership yang dapat disesuaikan',
     ],
+    contacts: [
+      { name: 'Fitri', role: 'Sponsorship', phone: PHONE_FITRI },
+      { name: 'Avie', role: 'Sponsorship', phone: PHONE_AVIE },
+    ],
   },
 
   billboard: {
@@ -48,6 +59,10 @@ const detailContent = {
       'Media exposure selama rangkaian kegiatan',
       'Pilihan media dan placement yang tersedia',
       'Kesempatan memperluas awareness brand',
+    ],
+    contacts: [
+      { name: 'Fitri', role: 'Media & Exposure', phone: PHONE_FITRI },
+      { name: 'Avie', role: 'Media & Exposure', phone: PHONE_AVIE },
     ],
   },
 
@@ -61,6 +76,9 @@ const detailContent = {
       'Pilihan kamar sesuai kebutuhan',
       'Informasi dan pemesanan melalui tim terkait',
     ],
+    contacts: [
+      { name: 'Rika', role: 'Akomodasi & Hotel', phone: PHONE_RIKA },
+    ],
   },
 
   tenant: {
@@ -72,6 +90,10 @@ const detailContent = {
       'Kesempatan mengenal bisnis peserta lainnya',
       'Ruang interaksi langsung dengan pengunjung',
       'Pilihan tenant yang terus diperbarui',
+    ],
+    contacts: [
+      { name: 'Fitri', role: 'Tenant', phone: PHONE_FITRI },
+      { name: 'Avie', role: 'Tenant', phone: PHONE_AVIE },
     ],
   },
 };
@@ -85,7 +107,8 @@ export default function ExploreCard({
   isOpen,
   onToggle,
 }: ExploreCardProps) {
-  const Icon = icons[type];
+  // Mencegah error crash jika ikon bernilai undefined
+  const Icon = icons[type] || Building2;
   const detail = detailContent[type];
 
   return (
@@ -101,9 +124,7 @@ export default function ExploreCard({
         aria-expanded={isOpen}
       >
         <div className="explore-card-top">
-          <span className="explore-card-number">
-            {number}
-          </span>
+          <span className="explore-card-number">{number}</span>
 
           <div className="explore-card-icon">
             <Icon size={22} strokeWidth={1.7} />
@@ -111,9 +132,7 @@ export default function ExploreCard({
         </div>
 
         <div className="explore-card-content">
-          <span className="explore-card-category">
-            {category}
-          </span>
+          <span className="explore-card-category">{category}</span>
 
           <h3>{title}</h3>
 
@@ -121,16 +140,10 @@ export default function ExploreCard({
         </div>
 
         <div className="explore-card-footer">
-          <span>
-            {isOpen ? 'Tutup informasi' : 'Lihat informasi'}
-          </span>
+          <span>{isOpen ? 'Tutup poin' : 'Lihat poin'}</span>
 
           <div className="explore-card-arrow">
-            {isOpen ? (
-              <ArrowDown size={18} />
-            ) : (
-              <ArrowUpRight size={18} />
-            )}
+            {isOpen ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </div>
         </div>
       </button>
@@ -139,9 +152,7 @@ export default function ExploreCard({
         <div className="explore-card-detail">
           <div className="explore-card-detail-inner">
             <div>
-              <span className="explore-detail-label">
-                INFORMASI
-              </span>
+              <span className="explore-detail-label">INFORMASI POIN</span>
 
               <h4>{detail.title}</h4>
 
@@ -157,13 +168,26 @@ export default function ExploreCard({
               ))}
             </div>
 
-            <a
-              href="#contact"
-              className="explore-contact-button"
-            >
-              Hubungi Tim
-              <ArrowUpRight size={16} />
-            </a>
+            {/* List Kontak Sesuai Penanggung Jawab */}
+            <div className="explore-contact-group">
+              {detail.contacts.map((contact) => (
+                <a
+                  key={contact.name}
+                  href={`https://wa.me/${contact.phone}?text=Halo%20${contact.name},%20saya%20ingin%20bertanya%20mengenai%20${encodeURIComponent(
+                    detail.title
+                  )}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="explore-contact-button"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <MessageCircle size={16} />
+                  <span>
+                    Hubungi {contact.name} ({contact.role})
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       )}

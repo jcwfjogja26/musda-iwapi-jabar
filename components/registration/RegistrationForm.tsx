@@ -41,13 +41,14 @@ export default function RegistrationForm() {
 
   const [loading, setLoading] = useState(false);
 
-  const [registrationCode, setRegistrationCode] =
-    useState<string | null>(null);
+  // Menggunakan state boolean untuk indikator pendaftaran berhasil
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
 
+  // Mengarahkan ke halaman /explore setelah 4.5 detik saat isSuccess bernilai true
   useEffect(() => {
-    if (!registrationCode) {
+    if (!isSuccess) {
       return;
     }
 
@@ -56,7 +57,7 @@ export default function RegistrationForm() {
     }, 4500);
 
     return () => window.clearTimeout(timer);
-  }, [registrationCode]);
+  }, [isSuccess]);
 
   function scrollToForm() {
     setTimeout(() => {
@@ -133,7 +134,8 @@ export default function RegistrationForm() {
         );
       }
 
-      setRegistrationCode(result.registrationCode);
+      // Ubah status menjadi berhasil
+      setIsSuccess(true);
     } catch (error) {
       const message =
         error instanceof Error
@@ -190,11 +192,8 @@ export default function RegistrationForm() {
         </div>
       </section>
 
-      {registrationCode && (
-        <RegistrationSuccess
-          registrationCode={registrationCode}
-        />
-      )}
+      {/* Menampilkan modal success jika isSuccess true */}
+      {isSuccess && <RegistrationSuccess />}
     </>
   );
 }

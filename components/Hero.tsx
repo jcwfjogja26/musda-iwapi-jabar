@@ -46,11 +46,11 @@ export default function Hero() {
           </div>
 
           <div className="hero-actions">
-            <a href="/registrasi" className="hero-button">
+            <a href="/registrasi" className="hero-button hero-button-primary">
               Daftar Sekarang
             </a>
 
-            <a href="#tentang" className="hero-link">
+            <a href="#tentang" className="hero-button hero-button-secondary">
               Kenali MUSDA
             </a>
           </div>

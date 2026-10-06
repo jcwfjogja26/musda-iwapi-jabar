@@ -139,6 +139,7 @@ export default function About() {
           <span className="gallery-count">05 — MOMENTS</span>
         </div>
 
+        {/* Container Gallery */}
         <div className="about-gallery">
           {gallery.map((item, index) => (
             <article
@@ -148,13 +149,9 @@ export default function About() {
               <div className={`gallery-image gallery-image-${index + 1}`}>
                 <div className="gallery-image-overlay" />
 
-                <span className="gallery-number">
-                  0{index + 1}
-                </span>
+                <span className="gallery-number">0{index + 1}</span>
 
-                <span className="gallery-hover-label">
-                  {item.label}
-                </span>
+                <span className="gallery-hover-label">{item.label}</span>
               </div>
 
               <div className="gallery-card-info">
@@ -165,17 +162,25 @@ export default function About() {
           ))}
         </div>
 
+        {/* INDIKATOR DOTS KHUSUS MOBILE */}
+        <div className="gallery-dots">
+          {gallery.map((_, idx) => (
+            <span
+              key={idx}
+              className={`gallery-dot ${idx === 0 ? "active" : ""}`}
+            />
+          ))}
+        </div>
+
         {/* SMALL SECTION MARKER */}
         <div className="about-bottom-mark">
           <span />
-          <p>
-            Perempuan pengusaha, satu ruang untuk bertumbuh bersama.
-          </p>
+          <p>Perempuan pengusaha, satu ruang untuk bertumbuh bersama.</p>
           <span />
         </div>
       </div>
 
-      <div className="section-wave wave-white-to-blue" />
+      <div className="section-wave wave-dark-to-white" />
     </section>
   );
 }

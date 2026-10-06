@@ -2,44 +2,42 @@
 
 import { Check } from 'lucide-react';
 
-interface RegistrationSuccessProps {
-  registrationCode: string;
-}
-
-export default function RegistrationSuccess({
-  registrationCode,
-}: RegistrationSuccessProps) {
+export default function RegistrationSuccess() {
   return (
     <div className="success-overlay">
       <div className="success-card">
-        <div className="success-icon">
-          <Check size={28} />
+        {/* Layer Efek Glow Hero */}
+        <div className="hero-background">
+          <div className="hero-glow hero-glow-one" />
+          <div className="hero-glow hero-glow-two" />
         </div>
 
-        <span className="success-kicker">
-          PENDAFTARAN BERHASIL
-        </span>
+        {/* Konten Modal */}
+        <div className="success-card-content">
+          <div className="success-icon">
+            <Check size={28} />
+          </div>
 
-        <h2>
-          Sampai jumpa di
-          <br />
-          MUSDA IWAPI.
-        </h2>
+          <span className="success-kicker">
+            PENDAFTARAN BERHASIL
+          </span>
 
-        <p>
-          Pendaftaran Anda sudah diterima.
-          Simpan kode registrasi berikut untuk
-          kebutuhan informasi selanjutnya.
-        </p>
+          <h2>
+            Sampai jumpa di
+            <br />
+            MUSDA IWAPI.
+          </h2>
 
-        <div className="registration-code">
-          <span>KODE REGISTRASI</span>
-          <strong>{registrationCode}</strong>
-        </div>
+          <p>
+            Pendaftaran Anda telah berhasil diterima.
+            Silakan tunggu konfirmasi selanjutnya dari tim
+            panitia.
+          </p>
 
-        <div className="success-loading">
-          <span />
-          Mengarahkan ke Explore...
+          <div className="success-loading">
+            <span />
+            Mengarahkan ke Explore...
+          </div>
         </div>
       </div>
     </div>
