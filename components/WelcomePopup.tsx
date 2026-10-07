@@ -1,30 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { CalendarDays, X } from "lucide-react";
 
 export default function WelcomePopup() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Sembunyikan popup jika user berada di halaman /registrasi atau /explore
+  if (pathname === "/registrasi" || pathname === "/explore") {
+    return null;
+  }
 
   useEffect(() => {
-    const hasSeenPopup = sessionStorage.getItem("musda-welcome-seen");
+    const timer = window.setTimeout(() => {
+      setIsOpen(true);
+    }, 450);
 
-    if (!hasSeenPopup) {
-      const timer = window.setTimeout(() => {
-        setIsOpen(true);
-      }, 450);
-
-      return () => window.clearTimeout(timer);
-    }
+    return () => window.clearTimeout(timer);
   }, []);
 
   const closePopup = () => {
-    sessionStorage.setItem("musda-welcome-seen", "true");
     setIsOpen(false);
   };
 
   const handleRegister = () => {
-    sessionStorage.setItem("musda-welcome-seen", "true");
     window.location.href = "/registrasi";
   };
 
@@ -50,8 +51,6 @@ export default function WelcomePopup() {
               <span>JAWA BARAT</span>
               <p>DPD IWAPI 2026</p>
             </h2>
-
-            
 
             <div className="welcome-popup-date">
               <CalendarDays size={15} strokeWidth={1.8} />

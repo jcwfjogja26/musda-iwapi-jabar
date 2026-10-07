@@ -766,7 +766,60 @@ main {
   }
 }
 
+/* =====================================================
+   HERO POSTER CARD
+===================================================== */
+.hero-poster-card {
+  margin: 24px auto 32px auto;
+  max-width: 520px;
+  width: 100%;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
+.hero-poster-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.hero-poster-img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Penyesuaian Responsif Mobile */
+@media screen and (max-width: 768px) {
+  .hero-poster-card {
+    max-width: 90%;
+    margin: 18px auto 24px auto;
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .hero-poster-img {
+    border-radius: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero-poster-card {
+    max-width: 94%;
+    margin: 14px auto 20px auto;
+    padding: 6px;
+  }
+}
 /* =====================================================
    05. ABOUT SECTION
 ===================================================== */
@@ -3115,6 +3168,31 @@ main {
   }
 }
 
+.partnership-detail-point {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.partnership-detail-content {
+  flex: 1;
+}
+
+.partnership-point-image {
+  margin-top: 12px;
+  max-width: 400px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.partnership-point-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* MENGUBAH WARNA WAVE TRANSISI KE BIRU MUDA HOTEL (#eaf4fc) */
 .hotel-v2 .section-wave,
 .hotel-v2 .wave-soft-to-white,
@@ -3287,6 +3365,53 @@ main {
 .hotel-price-card:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(7, 89, 164, 0.1);
+}
+
+/* =====================================================
+   HOTEL CARD THUMBNAIL FOTO KAMAR & OVERLAY HOVER
+===================================================== */
+.hotel-card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 16px;
+  background-color: #e2e8f0;
+}
+
+.hotel-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.hotel-card-image-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 42, 74, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.hotel-card-image-wrapper:hover .hotel-card-image {
+  transform: scale(1.06);
+}
+
+.hotel-card-image-wrapper:hover .hotel-card-image-overlay {
+  opacity: 1;
 }
 
 .hotel-price-card-header {
@@ -3462,6 +3587,83 @@ main {
 }
 
 /* =====================================================
+   LIGHTBOX MODAL PREVIEW (POPUP PERBESAR FOTO)
+===================================================== */
+.hotel-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(6, 29, 57, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: hotelFadeIn 0.25s ease-out;
+}
+
+.hotel-modal-content {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 16px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+}
+
+.hotel-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(6, 29, 57, 0.08);
+  border: none;
+  color: #072a4a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.hotel-modal-close:hover {
+  background: rgba(6, 29, 57, 0.18);
+  transform: scale(1.05);
+}
+
+.hotel-modal-image-wrapper {
+  width: 100%;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #f1f5f9;
+}
+
+.hotel-modal-title {
+  margin-top: 14px;
+  text-align: center;
+  color: #072a4a;
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@keyframes hotelFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =====================================================
    RESPONSIVE MOBILE (MAX-WIDTH: 768PX)
 ===================================================== */
 @media screen and (max-width: 768px) {
@@ -3522,6 +3724,10 @@ main {
     padding: 18px !important;
   }
 
+  .hotel-card-image-wrapper {
+    height: 160px !important;
+  }
+
   .hotel-price-card h3 {
     font-size: 18px !important;
   }
@@ -3551,34 +3757,34 @@ main {
   }
 
   /* Custom Tombol & Ikon Gaya iMessage */
-.button-imessage {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 10px 8px 20px !important;
-  border-radius: 999px !important; /* Membuat bentuk pil bulat mulus */
-}
+  .button-imessage {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px 8px 20px !important;
+    border-radius: 999px !important; /* Membuat bentuk pil bulat mulus */
+  }
 
-.imessage-icon-wrapper {
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%; /* Membulat penuh ala bubble iMessage */
-  background: #007aff; /* Warna biru khas iMessage */
-  color: #ffffff;
-  transition: transform 0.25s ease, background-color 0.25s ease;
-}
+  .imessage-icon-wrapper {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%; /* Membulat penuh ala bubble iMessage */
+    background: #007aff; /* Warna biru khas iMessage */
+    color: #ffffff;
+    transition: transform 0.25s ease, background-color 0.25s ease;
+  }
 
-.imessage-icon {
-  fill: #ffffff; /* Mengisi bagian dalam ikon agar lebih solid */
-  stroke: #007aff;
-}
+  .imessage-icon {
+    fill: #ffffff; /* Mengisi bagian dalam ikon agar lebih solid */
+    stroke: #007aff;
+  }
 
-.button-primary:hover .imessage-icon-wrapper {
-  transform: scale(1.08);
-  background: #0056b3;
-}
+  .button-primary:hover .imessage-icon-wrapper {
+    transform: scale(1.08);
+    background: #0056b3;
+  }
 }
 
 /* =====================================================

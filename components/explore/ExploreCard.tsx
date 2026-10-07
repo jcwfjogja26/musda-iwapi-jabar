@@ -21,9 +21,9 @@ interface ExploreCardProps {
 }
 
 // ⚠️ GANTI DENGAN NOMOR WHATSAPP ASLI (Format: 628xxxxxxxxxx)
-const PHONE_FITRI = '628xxxxxxxxxx';
-const PHONE_AVIE = '628xxxxxxxxxx';
-const PHONE_RIKA = '628xxxxxxxxxx';
+const PHONE_FITRI = '6282126169071';
+const PHONE_AVIE = '6281221700050';
+const PHONE_RIKA = '62811245222';
 
 // Pemetaan Ikon yang dipastikan aman
 const icons = {
@@ -45,8 +45,8 @@ const detailContent = {
       'Pilihan bentuk partnership yang dapat disesuaikan',
     ],
     contacts: [
-      { name: 'Fitri', role: 'Sponsorship', phone: PHONE_FITRI },
-      { name: 'Avie', role: 'Sponsorship', phone: PHONE_AVIE },
+      { name: 'Ibu Fitri', role: 'Sponsorship', phone: PHONE_FITRI },
+      { name: 'Ibu Avi', role: 'Sponsorship', phone: PHONE_AVIE },
     ],
   },
 
@@ -61,8 +61,8 @@ const detailContent = {
       'Kesempatan memperluas awareness brand',
     ],
     contacts: [
-      { name: 'Fitri', role: 'Media & Exposure', phone: PHONE_FITRI },
-      { name: 'Avie', role: 'Media & Exposure', phone: PHONE_AVIE },
+      { name: 'Ibu Fitri', role: 'Media & Exposure', phone: PHONE_FITRI },
+      { name: 'Ibu Avi', role: 'Media & Exposure', phone: PHONE_AVIE },
     ],
   },
 
@@ -77,7 +77,7 @@ const detailContent = {
       'Informasi dan pemesanan melalui tim terkait',
     ],
     contacts: [
-      { name: 'Rika', role: 'Akomodasi & Hotel', phone: PHONE_RIKA },
+      { name: 'Ibu Rika', role: 'Akomodasi & Hotel', phone: PHONE_RIKA },
     ],
   },
 
@@ -92,8 +92,8 @@ const detailContent = {
       'Pilihan tenant yang terus diperbarui',
     ],
     contacts: [
-      { name: 'Fitri', role: 'Tenant', phone: PHONE_FITRI },
-      { name: 'Avie', role: 'Tenant', phone: PHONE_AVIE },
+      { name: 'Ibu Fitri', role: 'Tenant', phone: PHONE_FITRI },
+      { name: 'Ibu Avi', role: 'Tenant', phone: PHONE_AVIE },
     ],
   },
 };

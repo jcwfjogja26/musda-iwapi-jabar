@@ -1,6 +1,10 @@
-import { BedDouble, Check, MessageCircle, Phone, Users } from "lucide-react";
+"use client";
 
-// Data Kamar Asli dari Hotel Asrilia Bandung
+import { useState } from "react";
+import Image from "next/image";
+import { BedDouble, Check, MessageCircle, Phone, Users, ZoomIn, X } from "lucide-react";
+
+// Data Kamar dengan Properti `image`
 const hotels = [
   {
     name: "Hotel Asrilia Bandung",
@@ -8,6 +12,7 @@ const hotels = [
     price: "Rp 500.000",
     note: "/ malam",
     pax: "2 Pax (1 Malam 2 Hari)",
+    image: "/image/twin.png", // Ganti path gambar kamar kamu
   },
   {
     name: "Hotel Asrilia Bandung",
@@ -15,6 +20,7 @@ const hotels = [
     price: "Rp 550.000",
     note: "/ malam",
     pax: "2 Pax (1 Malam 2 Hari)",
+    image: "/image/hollywood.png", // Ganti path gambar kamar kamu
   },
   {
     name: "Hotel Asrilia Bandung",
@@ -22,10 +28,17 @@ const hotels = [
     price: "Rp 650.000",
     note: "/ malam",
     pax: "2 Pax (1 Malam 2 Hari)",
+    image: "/image/king.png", // Ganti path gambar kamar kamu
   },
 ];
 
 export default function Hotel() {
+  // State untuk menyimpan data kamar yang gambarnya sedang di-preview
+  const [selectedImage, setSelectedImage] = useState<{
+    url: string;
+    title: string;
+  } | null>(null);
+
   return (
     <section className="hotel-v2" id="hotel">
       <div className="section-container">
@@ -47,9 +60,17 @@ export default function Hotel() {
           </p>
         </div>
 
-        {/* GALLERY (TETAP SAMA TANPA DIUBAH) */}
+        {/* GALLERY ATAS */}
         <div className="hotel-gallery">
           <div className="hotel-image hotel-image-main">
+            <Image
+              src="/image/hotelasrilia.png"
+              alt="Hotel Asrilia Bandung"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 50vw"
+              style={{ objectFit: "cover" }}
+            />
             <div className="hotel-image-gradient" />
             <div className="hotel-image-caption">
               <span>01</span>
@@ -58,11 +79,25 @@ export default function Hotel() {
           </div>
 
           <div className="hotel-image hotel-image-second">
+            <Image
+              src="/image/room.png"
+              alt="Kamar Hotel Asrilia"
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              style={{ objectFit: "cover" }}
+            />
             <div className="hotel-image-gradient" />
             <span>ROOM</span>
           </div>
 
           <div className="hotel-image hotel-image-third">
+            <Image
+              src="/image/lounge.png"
+              alt="Lounge Hotel Asrilia"
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              style={{ objectFit: "cover" }}
+            />
             <div className="hotel-image-gradient" />
             <span>LOUNGE</span>
           </div>
@@ -74,6 +109,27 @@ export default function Hotel() {
           <div className="hotel-pricing">
             {hotels.map((hotel) => (
               <article className="hotel-price-card" key={hotel.type}>
+                {/* THUMBNAIL GAMBAR KAMAR BISA DIKLIK */}
+                <div
+                  className="hotel-card-image-wrapper"
+                  onClick={() =>
+                    setSelectedImage({ url: hotel.image, title: `${hotel.name} — ${hotel.type}` })
+                  }
+                  title="Klik untuk melihat foto lebih jelas"
+                >
+                  <Image
+                    src={hotel.image}
+                    alt={hotel.type}
+                    width={400}
+                    height={220}
+                    className="hotel-card-image"
+                  />
+                  <div className="hotel-card-image-overlay">
+                    <ZoomIn size={22} />
+                    <span>Perbesar Foto</span>
+                  </div>
+                </div>
+
                 <div className="hotel-price-card-header">
                   <div className="hotel-price-icon">
                     <BedDouble size={18} />
@@ -107,7 +163,7 @@ export default function Hotel() {
             ))}
           </div>
 
-          {/* CONTACT CARD REVISED */}
+          {/* CONTACT CARD */}
           <div className="hotel-contact-card">
             <div className="hotel-contact-header">
               <div className="hotel-contact-icon-wrapper">
@@ -129,12 +185,43 @@ export default function Hotel() {
               rel="noopener noreferrer"
               className="button-primary"
             >
-              Hubungi Tim
+              Hubungi Ibu Rika
               <MessageCircle size={16} />
             </a>
           </div>
         </div>
       </div>
+
+      {/* LIGHTBOX MODAL PREVIEW GAMBAR */}
+      {selectedImage && (
+        <div
+          className="hotel-modal-overlay"
+          onClick={() => setSelectedImage(null)}
+        >
+          <div
+            className="hotel-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="hotel-modal-close"
+              onClick={() => setSelectedImage(null)}
+              aria-label="Tutup"
+            >
+              <X size={20} />
+            </button>
+            <div className="hotel-modal-image-wrapper">
+              <Image
+                src={selectedImage.url}
+                alt={selectedImage.title}
+                width={1000}
+                height={650}
+                style={{ width: "100%", height: "auto", borderRadius: "12px" }}
+              />
+            </div>
+            <p className="hotel-modal-title">{selectedImage.title}</p>
+          </div>
+        </div>
+      )}
 
       <div className="section-wave wave-blue-to-light" />
     </section>

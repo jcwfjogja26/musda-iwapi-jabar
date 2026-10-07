@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function Hero() {
   return (
     <section className="hero">
@@ -18,6 +20,18 @@ export default function Hero() {
             <em>IWAPI</em>
             <strong>JAWA BARAT</strong>
           </h1>
+
+          {/* CARD POSTER MUSDA */}
+          <div className="hero-poster-card">
+            <Image
+              src="/image/poster.png"
+              alt="Poster MUSDA IWAPI Jawa Barat"
+              width={640}
+              height={480}
+              priority
+              className="hero-poster-img"
+            />
+          </div>
 
           <div className="hero-theme">
             <span>TEMA MUSDA 2026</span>

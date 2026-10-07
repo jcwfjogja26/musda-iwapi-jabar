@@ -1,8 +1,8 @@
 import { ArrowUpRight, MessageCircle } from "lucide-react";
 
 // ⚠️ ISIKAN NOMOR WHATSAPP ASLI DI SINI (Gunakan format 628xxxxxxxxxx)
-const PHONE_FITRI = "628xxxxxxxxxx";
-const PHONE_AVIE = "628xxxxxxxxxx";
+const PHONE_FITRI = "6282126169071";
+const PHONE_AVI = "6281221700050";
 
 export default function Footer() {
   return (
@@ -61,18 +61,18 @@ export default function Footer() {
                 className="footer-contact-btn"
               >
                 <MessageCircle size={14} />
-                <span>Contact Fitri</span>
+                <span>Contact Ibu Fitri</span>
                 <ArrowUpRight size={14} />
               </a>
 
               <a
-                href={`https://wa.me/${PHONE_AVIE}?text=Halo%20Avie,%20saya%20ingin%20bertanya%20mengenai%20MUSDA%20IWAPI`}
+                href={`https://wa.me/${PHONE_AVI}?text=Halo%20Avie,%20saya%20ingin%20bertanya%20mengenai%20MUSDA%20IWAPI`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-contact-btn"
               >
                 <MessageCircle size={14} />
-                <span>Contact Avie</span>
+                <span>Contact Ibu Avi</span>
                 <ArrowUpRight size={14} />
               </a>
             </div>

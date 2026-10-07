@@ -5,9 +5,9 @@ import { ArrowLeft, MessageCircle } from 'lucide-react';
 import ExploreCard from '@/components/explore/ExploreCard';
 
 // ⚠️ Nomor Kontak CP
-const PHONE_FITRI = '628xxxxxxxxxx';
-const PHONE_AVIE = '628xxxxxxxxxx';
-const PHONE_RIKA = '628xxxxxxxxxx';
+const PHONE_FITRI = '6282126169071';
+const PHONE_AVI = '6281221700050';
+const PHONE_RIKA = '62811245222';
 
 const exploreItems = [
   {
@@ -135,28 +135,20 @@ export default function ExplorePage() {
               className="explore-bottom-btn"
             >
               <MessageCircle size={16} />
-              <span>Contact Fitri</span>
+              <span>Contact Ibu Fitri</span>
             </a>
 
             <a
-              href={`https://wa.me/${PHONE_AVIE}?text=Halo%20Avie,%20saya%20ingin%20bertanya%20mengenai%20MUSDA`}
+              href={`https://wa.me/${PHONE_AVI}?text=Halo%20Avie,%20saya%20ingin%20bertanya%20mengenai%20MUSDA`}
               target="_blank"
               rel="noopener noreferrer"
               className="explore-bottom-btn"
             >
               <MessageCircle size={16} />
-              <span>Contact Avie</span>
+              <span>Contact Ibu Avi</span>
             </a>
 
-            <a
-              href={`https://wa.me/${PHONE_RIKA}?text=Halo%20Rika,%20saya%20ingin%20bertanya%20mengenai%20Hotel%20dan%20Akomodasi`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="explore-bottom-btn"
-            >
-              <MessageCircle size={16} />
-              <span>Contact Rika</span>
-            </a>
+            
           </div>
         </div>
 
