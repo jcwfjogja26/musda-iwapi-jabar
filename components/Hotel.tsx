@@ -60,7 +60,7 @@ export default function Hotel() {
           </p>
         </div>
 
-        {/* GALLERY ATAS */}
+        {/* GALLERY ATAS (5 FOTO GALLERY) */}
         <div className="hotel-gallery">
           <div className="hotel-image hotel-image-main">
             <Image
@@ -68,7 +68,7 @@ export default function Hotel() {
               alt="Hotel Asrilia Bandung"
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 40vw"
               style={{ objectFit: "cover" }}
             />
             <div className="hotel-image-gradient" />
@@ -78,28 +78,53 @@ export default function Hotel() {
             </div>
           </div>
 
-          <div className="hotel-image hotel-image-second">
+          <div className="hotel-image hotel-image-item">
             <Image
               src="/image/room.png"
               alt="Kamar Hotel Asrilia"
               fill
-              sizes="(max-width: 768px) 50vw, 25vw"
+              sizes="(max-width: 768px) 50vw, 20vw"
               style={{ objectFit: "cover" }}
             />
             <div className="hotel-image-gradient" />
             <span>ROOM</span>
           </div>
 
-          <div className="hotel-image hotel-image-third">
+          <div className="hotel-image hotel-image-item">
             <Image
               src="/image/lounge.png"
               alt="Lounge Hotel Asrilia"
               fill
-              sizes="(max-width: 768px) 50vw, 25vw"
+              sizes="(max-width: 768px) 50vw, 20vw"
               style={{ objectFit: "cover" }}
             />
             <div className="hotel-image-gradient" />
             <span>LOUNGE</span>
+          </div>
+
+          {/* DUA CARD TAMBAHAN: KOLAM RENANG & WATERBOOM */}
+          <div className="hotel-image hotel-image-item">
+            <Image
+              src="/image/kolam.png"
+              alt="Kolam Renang Hotel Asrilia"
+              fill
+              sizes="(max-width: 768px) 50vw, 20vw"
+              style={{ objectFit: "cover" }}
+            />
+            <div className="hotel-image-gradient" />
+            <span>SWIMMING POOL</span>
+          </div>
+
+          <div className="hotel-image hotel-image-item">
+            <Image
+              src="/image/waterboom.png"
+              alt="Waterboom Hotel Asrilia"
+              fill
+              sizes="(max-width: 768px) 50vw, 20vw"
+              style={{ objectFit: "cover" }}
+            />
+            <div className="hotel-image-gradient" />
+            <span>WATERBOOM</span>
           </div>
         </div>
 
