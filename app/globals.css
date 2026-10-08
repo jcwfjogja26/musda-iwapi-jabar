@@ -8753,72 +8753,82 @@ main {
 }
 
 /* =====================================================
-   CONTACT PERSON BANDROS
+   CONTACT PERSON PILL BUTTONS
 ===================================================== */
-.bandros-cp-section {
-  margin-top: 6px;
-  padding-top: 18px;
-  border-top: 1px dashed rgba(7, 89, 164, 0.12);
-}
-
-.bandros-cp-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-}
-
-.bandros-cp-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  padding: 10px 14px;
-  border-radius: 14px;
-  transition: all 0.2s ease;
-}
-
-.bandros-cp-card:hover {
-  border-color: #0077cc;
-  box-shadow: 0 4px 12px rgba(0, 119, 204, 0.08);
-}
-
-.cp-info {
+.bandros-cp-wrapper {
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
-.cp-info strong {
-  font-size: 13px;
-  color: #072a4a;
-  font-weight: 700;
+.cp-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #0077cc;
+  text-transform: uppercase;
 }
 
-.cp-info span {
-  font-size: 10px;
-  color: #64748b;
+.cp-buttons-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
-.cp-chat-button {
+.cp-btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  background: #0077cc;
-  color: #ffffff;
-  padding: 6px 12px;
-  border-radius: 10px;
-  font-size: 11px;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 15px;
   font-weight: 700;
   text-decoration: none;
-  transition: background 0.2s ease;
+  transition: all 0.2s ease;
+  flex: 1;
 }
 
-.cp-chat-button:hover {
+/* TOMBOL LIGHT (IBU FITRI) */
+.cp-btn-light {
+  background: #f0f7ff;
+  color: #072a4a;
+  border: 1px solid #cce5ff;
+}
+
+.cp-btn-light svg {
+  color: #0077cc;
+}
+
+.cp-btn-light:hover {
+  background: #e1f0ff;
+  border-color: #0077cc;
+}
+
+/* TOMBOL PRIMARY (IBU AVI) */
+.cp-btn-primary {
+  background: #0077cc;
+  color: #ffffff;
+  border: 1px solid #0077cc;
+  box-shadow: 0 6px 16px rgba(0, 119, 204, 0.25);
+}
+
+.cp-btn-primary svg {
+  color: #ffffff;
+}
+
+.cp-btn-primary:hover {
   background: #005bb5;
+  box-shadow: 0 8px 20px rgba(0, 119, 204, 0.35);
 }
 
-@media screen and (max-width: 768px) {
-  .bandros-cp-grid {
-    grid-template-columns: 1fr !important;
+@media screen and (max-width: 480px) {
+  .cp-buttons-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .cp-btn {
+    width: 100%;
   }
 }

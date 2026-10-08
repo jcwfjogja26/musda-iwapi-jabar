@@ -82,6 +82,20 @@ export default function BandrosTour() {
 
         {/* MAIN CONTENT CARD */}
         <div className="bandros-card-grid">
+          {/* SISI KANAN / PALING ATAS PADA MOBILE: POSTER BANDROS */}
+          <div className="bandros-visual">
+            <div className="visual-wrapper">
+              <Image
+                src="/image/bandrostour.png"
+                alt="Tour on the Bandros Bandung"
+                width={500}
+                height={600}
+                className="bandros-img"
+                priority
+              />
+            </div>
+          </div>
+
           {/* SISI KIRI: DETAIL RUTE & JADWAL */}
           <div className="bandros-info">
             {/* RUTE LINTASAN SIMPLE PILLS WITH ARROWS */}
@@ -192,49 +206,37 @@ export default function BandrosTour() {
               </div>
             </div>
 
-            {/* CONTACT PERSON BANDROS (IBU FITRI & IBU AVI) */}
-            <div className="bandros-cp-section">
-              <div className="bandros-block-header">
-                <div className="block-title-group">
-                  <Phone className="icon-blue" size={18} />
-                  <h3>Hubungi Contact Person</h3>
-                </div>
-              </div>
+            {/* CONTACT PERSON BANDROS */}
+            <div className="bandros-cp-wrapper">
+              <span className="cp-kicker">CONTACT PERSON</span>
+              <div className="cp-buttons-group">
+                <a
+                  href="https://wa.me/628123456789?text=Halo%20Ibu%20Fitri,%20saya%20ingin%20tanya%20informasi%20pendaftaran%20Bandros%20Tour%20MUSDA%20IWAPI."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cp-btn cp-btn-light"
+                >
+                  <span>Ibu Fitri</span>
+                  <MessageCircle size={18} />
+                </a>
 
-              <div className="bandros-cp-grid">
-                {contacts.map((cp) => (
-                  <div key={cp.name} className="bandros-cp-card">
-                    <div className="cp-info">
-                      <strong>{cp.name}</strong>
-                      <span>{cp.role}</span>
-                    </div>
-                    <a
-                      href={`https://wa.me/${cp.phone}?text=${cp.message}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="cp-chat-button"
-                      title={`Hubungi ${cp.name}`}
-                    >
-                      <MessageCircle size={16} />
-                      <span>Chat</span>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
 
-          {/* SISI KANAN: POSTER BANDROS */}
-          <div className="bandros-visual">
-            <div className="visual-wrapper">
-              <Image
-                src="/image/bandrostour.png"
-                alt="Tour on the Bandros Bandung"
-                width={500}
-                height={600}
-                className="bandros-img"
-                priority
-              />
+
+
+
+
+
+
+                <a
+                  href="https://wa.me/628987654321?text=Halo%20Ibu%20Avi,%20saya%20ingin%20tanya%20informasi%20pendaftaran%20Bandros%20Tour%20MUSDA%20IWAPI."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="cp-btn cp-btn-primary"
+                >
+                  <span>Ibu Avi</span>
+                  <MessageCircle size={18} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
