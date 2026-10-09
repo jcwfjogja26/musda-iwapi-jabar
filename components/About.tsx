@@ -1,3 +1,7 @@
+"use client";
+
+import { useState, useRef } from "react";
+import Image from "next/image";
 import { MessageCircle, Target, UsersRound } from "lucide-react";
 
 const functions = [
@@ -26,30 +30,62 @@ const gallery = [
     title: "Musda IWAPI",
     label: "MOMENT",
     className: "gallery-one",
+    image: "/image/g1.png", // Ganti path foto kamu di public/image/
   },
   {
     title: "Kegiatan Organisasi",
     label: "ACTIVITY",
     className: "gallery-two",
+    image: "/image/g2.png", // Ganti path foto kamu di public/image/
   },
   {
     title: "Women in Business",
     label: "COMMUNITY",
     className: "gallery-three",
+    image: "/image/g3.png", // Ganti path foto kamu di public/image/
   },
   {
     title: "Kolaborasi",
     label: "NETWORK",
     className: "gallery-four",
+    image: "/image/g4.png", // Ganti path foto kamu di public/image/
   },
   {
     title: "Jabar Bergerak",
     label: "IMPACT",
     className: "gallery-five",
+    image: "/image/g5.png", // Ganti path foto kamu di public/image/
   },
 ];
 
 export default function About() {
+  // State untuk melacak indeks foto yang sedang aktif saat digeser di mobile
+  const [activeIndex, setActiveIndex] = useState(0);
+  const galleryRef = useRef<HTMLDivElement>(null);
+
+  // Handler untuk mendeteksi posisi scroll horizontal dan memindahkan dot aktif
+  const handleScroll = () => {
+    if (galleryRef.current) {
+      const { scrollLeft, clientWidth } = galleryRef.current;
+      if (clientWidth > 0) {
+        const newIndex = Math.round(scrollLeft / clientWidth);
+        setActiveIndex(newIndex);
+      }
+    }
+  };
+
+  // Handler saat dot diklik langsung untuk scroll ke foto tujuan
+  const scrollToSlide = (index: number) => {
+    if (galleryRef.current) {
+      const clientWidth = galleryRef.current.clientWidth;
+      galleryRef.current.scrollTo({
+        left: index * clientWidth,
+        behavior: "smooth",
+      });
+      setActiveIndex(index);
+    }
+  };
+
   return (
     <section className="about-v2" id="tentang">
       <div className="section-container">
@@ -126,7 +162,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* GALLERY */}
+        {/* GALLERY HEADER */}
         <div className="gallery-header">
           <div>
             <span className="section-kicker">MOMENTS</span>
@@ -139,14 +175,28 @@ export default function About() {
           <span className="gallery-count">05 — MOMENTS</span>
         </div>
 
-        {/* Container Gallery */}
-        <div className="about-gallery">
+        {/* CONTAINER GALLERY DENGAN DETEKSI SCROLL */}
+        <div
+          className="about-gallery"
+          ref={galleryRef}
+          onScroll={handleScroll}
+        >
           {gallery.map((item, index) => (
             <article
               className={`gallery-card ${item.className}`}
               key={item.title}
             >
               <div className={`gallery-image gallery-image-${index + 1}`}>
+                {/* KOMPONEN GAMBAR NEXT.JS */}
+                <Image
+                  src={item.image}
+                  alt={item.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  style={{ objectFit: "cover" }}
+                  priority={index === 0}
+                />
+
                 <div className="gallery-image-overlay" />
 
                 <span className="gallery-number">0{index + 1}</span>
@@ -162,12 +212,15 @@ export default function About() {
           ))}
         </div>
 
-        {/* INDIKATOR DOTS KHUSUS MOBILE */}
+        {/* INDIKATOR DOTS INTERAKTIF MOBILE */}
         <div className="gallery-dots">
           {gallery.map((_, idx) => (
-            <span
+            <button
               key={idx}
-              className={`gallery-dot ${idx === 0 ? "active" : ""}`}
+              type="button"
+              onClick={() => scrollToSlide(idx)}
+              className={`gallery-dot ${idx === activeIndex ? "active" : ""}`}
+              aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
         </div>

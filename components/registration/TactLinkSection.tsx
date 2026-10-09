@@ -12,10 +12,8 @@ import FileUpload from './FileUpload';
 
 interface TactLinkSectionProps {
   downloadProof: File | null;
-  rsvpProof: File | null;
   downloaded: boolean;
   onDownloadProofChange: (file: File | null) => void;
-  onRsvpProofChange: (file: File | null) => void;
   onDownloadedChange: (value: boolean) => void;
   onNext: () => void;
 }
@@ -25,8 +23,10 @@ const TACTLINK_PLAYSTORE_URL =
   'https://play.google.com/store/apps/details?id=com.tactlink.app';
 const TACTLINK_APPSTORE_URL =
   'https://apps.apple.com/id/app/tactlink/id1469516661';
-const TACTLINK_TUTORIAL_URL =
+const TACTLINK_TUTORIAL_DOWNLOAD_URL =
   'https://www.youtube.com/shorts/JuYtU3TVvYo';
+const TACTLINK_TUTORIAL_SCAN_URL =
+  'https://youtube.com/shorts/g2tMIyQxArU?si=xmksNv9X5qB-Ljc6';
 const TACTLINK_RSVP_URL =
   'https://app.tactlink.com/s/E4mviIFp5GQY';
 
@@ -68,17 +68,12 @@ function AppStoreIcon() {
 
 export default function TactLinkSection({
   downloadProof,
-  rsvpProof,
   downloaded,
   onDownloadProofChange,
-  onRsvpProofChange,
   onDownloadedChange,
   onNext,
 }: TactLinkSectionProps) {
-  const canContinue =
-    downloaded &&
-    downloadProof !== null &&
-    rsvpProof !== null;
+  const canContinue = downloaded && downloadProof !== null;
 
   return (
     <section className="registration-section">
@@ -86,9 +81,7 @@ export default function TactLinkSection({
 
       <div className="registration-section-content">
         <div className="registration-section-heading">
-          <span className="section-kicker">
-            TACTLINK
-          </span>
+          <span className="section-kicker">TACTLINK</span>
 
           <h2>Siapkan TactLink Anda</h2>
 
@@ -99,145 +92,138 @@ export default function TactLinkSection({
         </div>
 
         {/* --- LANGKAH 1: DOWNLOAD APLIKASI --- */}
-<div className="tactlink-info-card" style={{ marginBottom: '24px' }}>
-  <div className="tactlink-logo">T</div>
+        <div className="tactlink-info-card" style={{ marginBottom: '24px' }}>
+          <div className="tactlink-logo">T</div>
+
+          <div className="tactlink-info-content">
+            <span className="info-card-label">LANGKAH 1</span>
+
+            <h3>Unduh &amp; Pasang Aplikasi TactLink</h3>
+
+            <p>
+              Silakan unduh aplikasi TactLink sesuai dengan perangkat yang Anda gunakan,
+              kemudian ambil screenshot halaman awal/aplikasi terpasang sebagai bukti instalasi.
+            </p>
+
+            <div className="tactlink-actions">
+              <a
+                href={TACTLINK_TUTORIAL_DOWNLOAD_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="secondary-button"
+              >
+                <Play size={15} fill="currentColor" />
+                <span>Cara Download</span>
+              </a>
+
+              <a
+                href={TACTLINK_PLAYSTORE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="primary-button small"
+              >
+                <PlayStoreIcon />
+                <span>Google Play</span>
+              </a>
+
+              <a
+                href={TACTLINK_APPSTORE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="primary-button small"
+              >
+                <AppStoreIcon />
+                <span>App Store</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* UNGGUH BUKTI DOWNLOAD */}
+        <div style={{ marginBottom: '32px' }}>
+          <FileUpload
+            label="Bukti Download / Instalasi"
+            description="Unggah screenshot yang menunjukkan aplikasi TactLink telah terpasang di perangkat Anda."
+            file={downloadProof}
+            onChange={onDownloadProofChange}
+          />
+        </div>
+
+        {/* --- LANGKAH 2: LAKUKAN RSVP --- */}
+<div className="tactlink-info-card" style={{ marginTop: '12px', marginBottom: '28px' }}>
+  <div className="tactlink-logo" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8' }}>
+    <QrCode size={24} />
+  </div>
 
   <div className="tactlink-info-content">
-    <span className="info-card-label">LANGKAH 1</span>
+    <span className="info-card-label">LANGKAH 2</span>
 
-    <h3>Unduh &amp; Pasang Aplikasi TactLink</h3>
+    <h3>Lakukan RSVP &amp; Scan QR Acara MUSDA</h3>
 
     <p>
-      Silakan unduh aplikasi TactLink sesuai dengan perangkat yang Anda gunakan,
-      kemudian ambil screenshot halaman awal/aplikasi terpasang sebagai bukti instalasi.
+      Buka aplikasi TactLink yang sudah terpasang, lalu pindai (scan) QR Code di bawah ini atau tekan tombol link RSVP untuk mengonfirmasi kehadiran Anda.
     </p>
 
+    {/* BUTTONS SAMA DENGAN LANGKAH 1 */}
     <div className="tactlink-actions">
       <a
-        href={TACTLINK_TUTORIAL_URL}
+        href={TACTLINK_TUTORIAL_SCAN_URL}
         target="_blank"
         rel="noreferrer"
         className="secondary-button"
       >
         <Play size={15} fill="currentColor" />
-        <span>Cara Download</span>
+        <span>Tutorial Scan QR</span>
       </a>
 
       <a
-        href={TACTLINK_PLAYSTORE_URL}
+        href={TACTLINK_RSVP_URL}
         target="_blank"
         rel="noreferrer"
         className="primary-button small"
       >
-        <PlayStoreIcon />
-        <span>Google Play</span>
+        <span>Buka Link RSVP TactLink</span>
+        <ExternalLink size={15} />
       </a>
+    </div>
 
-      <a
-        href={TACTLINK_APPSTORE_URL}
-        target="_blank"
-        rel="noreferrer"
-        className="primary-button small"
+    {/* QR CODE CARD */}
+    <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+      <span style={{ fontSize: '13px', fontWeight: 700, color: '#38bdf8' }}>
+        Pindai QR Code via Aplikasi TactLink:
+      </span>
+      <div
+        style={{
+          background: '#ffffff',
+          padding: '16px',
+          borderRadius: '20px',
+          width: 'fit-content',
+          border: '1px solid rgba(56, 189, 248, 0.3)',
+          boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
+        }}
       >
-        <AppStoreIcon />
-        <span>App Store</span>
-      </a>
+        <Image
+          src="/image/qr-rsvp.png"
+          alt="QR Code RSVP TactLink MUSDA IWAPI Jabar"
+          width={200}
+          height={280}
+          style={{ objectFit: 'contain', borderRadius: '10px' }}
+        />
+      </div>
     </div>
   </div>
 </div>
-
-{/* UNGGUH BUKTI DOWNLOAD */}
-<div style={{ marginBottom: '40px' }}>
-  <FileUpload
-    label="Bukti Download / Instalasi"
-    description="Unggah screenshot yang menunjukkan aplikasi TactLink telah terpasang di perangkat Anda."
-    file={downloadProof}
-    onChange={onDownloadProofChange}
-  />
-</div>
-
-        {/* --- LANGKAH 2: LAKUKAN RSVP --- */}
-        <div className="tactlink-info-card" style={{ marginTop: '12px' }}>
-          <div className="tactlink-logo" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8' }}>
-            <QrCode size={24} />
-          </div>
-
-          <div className="tactlink-info-content">
-            <span className="info-card-label">
-              LANGKAH 2
-            </span>
-
-            <h3>
-              Lakukan RSVP Acara MUSDA
-            </h3>
-
-            <p>
-              Buka aplikasi TactLink dan lakukan RSVP kehadiran Anda melalui link resmi
-              atau dengan memindai (scan) QR Code di bawah ini.
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
-              <a
-                href={TACTLINK_RSVP_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="primary-button"
-                style={{ width: 'fit-content' }}
-              >
-                <span>Buka Link RSVP TactLink</span>
-                <ExternalLink size={16} />
-              </a>
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                <span style={{ fontSize: '12px', fontWeight: 600, color: 'rgba(255, 255, 255, 0.7)' }}>
-                  Atau Scan QR Code Berikut:
-                </span>
-                <div style={{
-                  background: '#ffffff',
-                  padding: '12px',
-                  borderRadius: '16px',
-                  width: 'fit-content',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
-                }}>
-                  <Image
-                    src="/image/qr-rsvp.png"
-                    alt="QR Code RSVP TactLink MUSDA IWAPI Jabar"
-                    width={180}
-                    height={260}
-                    style={{ objectFit: 'contain', borderRadius: '8px' }}
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* UNGGUH BUKTI RSVP (Berikan margin atas & hapus *) */}
-        <div style={{ marginTop: '28px', marginBottom: '28px' }}>
-          <FileUpload
-            label="Bukti RSVP TactLink"
-            description="Unggah screenshot konfirmasi berhasil RSVP atau scan QR dari aplikasi TactLink."
-            file={rsvpProof}
-            onChange={onRsvpProofChange}
-          />
-        </div>
 
         {/* --- CHECKLIST KONFIRMASI --- */}
         <label className="confirmation-check" style={{ marginTop: '24px' }}>
           <input
             type="checkbox"
             checked={downloaded}
-            onChange={(event) =>
-              onDownloadedChange(
-                event.target.checked
-              )
-            }
+            onChange={(event) => onDownloadedChange(event.target.checked)}
           />
 
           <span className="custom-checkbox">
-            {downloaded && (
-              <CheckCircle2 size={16} />
-            )}
+            {downloaded && <CheckCircle2 size={16} />}
           </span>
 
           <span>
@@ -248,7 +234,7 @@ export default function TactLinkSection({
         {/* FOOTER & TOMBOL NEXT */}
         <div className="registration-section-footer">
           <span className="step-hint">
-            Pastikan kedua bukti unggahan dan centang konfirmasi sudah terisi.
+            Pastikan bukti unggahan instalasi dan centang konfirmasi sudah terisi.
           </span>
 
           <button

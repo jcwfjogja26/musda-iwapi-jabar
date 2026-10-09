@@ -169,10 +169,8 @@ export default function RegistrationForm() {
             {currentStep >= 2 && (
               <TactLinkSection
                 downloadProof={downloadProof}
-                rsvpProof={rsvpProof}
                 downloaded={tactlinkDownloaded}
                 onDownloadProofChange={setDownloadProof}
-                onRsvpProofChange={setRsvpProof}
                 onDownloadedChange={
                   setTactlinkDownloaded
                 }

@@ -1197,6 +1197,70 @@ main {
   font-weight: 500;
 }
 
+/* =====================================================
+   INDIKATOR DOTS MOBILE (TERHUBUNG KE STATE SCROLL TSX)
+===================================================== */
+.gallery-dots {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  /* GALLERY BERUBAH JADI SCROLL HORIZONTAL */
+  .about-gallery {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-behavior: smooth !important;
+    gap: 16px !important;
+    padding-bottom: 10px !important;
+    scrollbar-width: none !important; /* Hilangkan scrollbar Firefox */
+    -ms-overflow-style: none !important;
+  }
+
+  .about-gallery::-webkit-scrollbar {
+    display: none !important; /* Hilangkan scrollbar Chrome/Safari */
+  }
+
+  .gallery-card {
+    scroll-snap-align: start !important;
+    flex: 0 0 85% !important; /* Lebar per kartu foto di mobile */
+    min-width: 85% !important;
+    height: 280px !important;
+  }
+
+  /* INDIKATOR DOTS */
+  .gallery-dots {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    margin-top: 20px !important;
+  }
+
+  /* RESET BUTTON/SPAN UNTUK MENINGGALKAN EFFECT BROWSER DEFAULT */
+  .gallery-dot {
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background: #cbd5e1 !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 8px !important;
+    height: 8px !important;
+    border-radius: 999px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  /* BENTUK KAPSUL BIRU SAAT AKTIF DIGESER */
+  .gallery-dot.active {
+    width: 28px !important;
+    background-color: var(--blue, #0077cc) !important;
+  }
+}
+
 /* Indikator Dots / Feeds (Tersembunyi di Desktop) */
 .gallery-dots {
   display: none;
@@ -1724,6 +1788,88 @@ main {
 
   .event-detail-card h3 {
     font-size: 12px;
+  }
+}
+
+/* =========================================================
+   PROMO DEADLINE & GOODIE BAG BANNER
+   ========================================================= */
+
+.event-registration-promo {
+  margin-top: 14px !important; /* Memperketat gap dari grid kartu di atasnya */
+  padding: 18px 22px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: #ffffff;
+}
+
+.promo-badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.promo-badge-deadline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: rgba(225, 29, 72, 0.9); /* Merah Crimson */
+  color: #ffffff;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.promo-badge-gift {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  background: #f59e0b; /* Warna Gold/Kuning Emas */
+  color: #072a4a;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.promo-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.promo-text strong {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* RESPONSIVE MOBILE */
+@media screen and (max-width: 640px) {
+  .event-registration-promo {
+    margin-top: 12px !important;
+    padding: 14px;
+    gap: 8px;
+  }
+
+  .promo-badge-deadline,
+  .promo-badge-gift {
+    font-size: 10.5px;
+    padding: 4px 10px;
+  }
+
+  .promo-text {
+    font-size: 11.5px;
   }
 }
 
@@ -2286,6 +2432,87 @@ main {
   color: var(--muted, #6c7a87);
   font-size: 8px;
   letter-spacing: 0.05em;
+}
+
+/* MARKET — TENANT ICONS */
+
+.tenant-logo-ai {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #075795;
+  background: linear-gradient(145deg, #ffffff 0%, #e7f2fa 100%);
+  border: 1px solid #d5e6f3;
+  box-shadow: 0 5px 14px rgba(7, 87, 149, 0.08);
+}
+
+.tenant-card-v2:hover .tenant-logo-ai {
+  color: #ffffff;
+  background: linear-gradient(145deg, #075795 0%, #0b75b9 100%);
+  border-color: #075795;
+  transform: translateY(-2px);
+}
+
+.tenant-logo-ai svg {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.25s ease;
+}
+
+.tenant-card-v2:hover .tenant-logo-ai svg {
+  transform: scale(1.06);
+}
+
+/* TOMBOL LIHAT SEMUA TENANT (DESKTOP) */
+.market-action {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}
+
+.market-see-more-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  color: #072a4a;
+  border: 1px solid #cbd5e1;
+  padding: 12px 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(7, 42, 74, 0.05);
+  transition: all 0.25s ease;
+}
+
+.market-see-more-btn:hover {
+  background: #0077cc;
+  color: #ffffff;
+  border-color: #0077cc;
+  box-shadow: 0 6px 18px rgba(0, 119, 204, 0.25);
+  transform: translateY(-2px);
+}
+
+/* PENYESUAIAN KHUSUS MOBILE (RESPONSIVE) */
+@media screen and (max-width: 768px) {
+  .market-action {
+    margin-top: 24px;
+  }
+
+  .market-see-more-btn {
+    padding: 8px 18px !important; /* Padding lebih ringkas */
+    font-size: 12px !important;    /* Ukuran teks lebih kecil */
+    gap: 6px !important;
+    width: auto !important;         /* Supaya tidak memenuhi lebar layar */
+    max-width: fit-content !important;
+  }
+
+  .market-see-more-btn svg {
+    width: 15px !important;        /* Ukuran ikon diperkecil */
+    height: 15px !important;
+  }
 }
 
 /* =========================================================
@@ -5154,6 +5381,68 @@ main {
   gap: 18px;
 }
 
+/* CONTAINER BADGE KAPSUL MERAH */
+.registration-deadline-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 6px 14px;
+  background-color: #e11d48; /* Warna merah */
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.3);
+  width: fit-content;
+  max-width: 100%;
+}
+
+/* LABEL KIRI (BATAS PENDAFTARAN) */
+.deadline-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  opacity: 0.9;
+  text-transform: uppercase;
+}
+
+.deadline-label svg {
+  flex-shrink: 0;
+  color: #ffffff;
+}
+
+/* TANGGAL & WAKTU */
+.deadline-time {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* OPTIMASI MOBILE */
+@media screen and (max-width: 480px) {
+  .registration-deadline-card {
+    padding: 5px 10px;
+    gap: 6px;
+  }
+
+  .deadline-label {
+    font-size: 9.5px;
+  }
+
+  .deadline-time {
+    font-size: 11px;
+    padding: 2px 6px;
+  }
+}
+
 /* =========================================================
    PROGRESS (STEPPER PRESISE & SIMETRIS)
    ========================================================= */
@@ -5598,7 +5887,7 @@ main {
 }
 
 /* =========================================================
-   TACTLINK
+   TACTLINK SECTION & INFO CARDS
    ========================================================= */
 
 .tactlink-info-card {
@@ -5615,6 +5904,8 @@ main {
     ),
     #123a5d;
   color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(18, 58, 93, 0.15);
 }
 
 .tactlink-logo {
@@ -5629,6 +5920,7 @@ main {
   color: #ffffff;
   font-family: 'Playfair Display', serif;
   font-size: 22px;
+  flex-shrink: 0;
 }
 
 .info-card-label {
@@ -5644,9 +5936,9 @@ main {
   margin: 0;
   color: #ffffff;
   font-family: 'Playfair Display', serif;
-  font-size: 25px;
+  font-size: 24px;
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.2;
 }
 
 .tactlink-info-content p {
@@ -5657,84 +5949,50 @@ main {
   line-height: 1.7;
 }
 
+/* TOMBOL AKSI & CTA BUTTONS */
 .tactlink-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 17px;
-}
-
-.tactlink-actions .secondary-button,
-.tactlink-actions .primary-button {
-  min-height: 37px;
-  font-size: 9px;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .tactlink-actions .secondary-button {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 0 14px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  justify-content: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 999px;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.06);
   color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
   text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.tactlink-actions .secondary-button:hover {
+  background: rgba(255, 255, 255, 0.18);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 .tactlink-actions .primary-button.small {
   display: inline-flex;
-  gap: 7px;
-  padding: 0 14px;
-}
-
-/* =========================================================
-   CONFIRMATION
-   ========================================================= */
-
-.confirmation-check {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  margin-top: 20px;
-  padding: 15px 16px;
-  border: 1px solid #e1e8ee;
-  border-radius: 12px;
-  background: #fafcfd;
-  color: #53697e;
-  font-size: 10px;
-  line-height: 1.6;
-  cursor: pointer;
-}
-
-.confirmation-check input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.custom-checkbox {
-  flex: 0 0 auto;
-  width: 18px;
-  height: 18px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccd8e2;
-  border-radius: 5px;
-  color: #ffffff;
-  background: #ffffff;
-}
-
-.confirmation-check
-  input:checked
-  + .custom-checkbox {
-  border-color: #286aa9;
-  background: #286aa9;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 16px;
+  font-size: 11px;
+  font-weight: 600;
 }
 
 /* =========================================================
-   PROOF UPLOAD
+   PROOF UPLOAD & FILE FIELD
    ========================================================= */
 
 .proof-grid {
@@ -5752,7 +6010,7 @@ main {
   display: block;
   margin-bottom: 8px;
   color: #31485f;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
 }
 
@@ -5767,6 +6025,12 @@ main {
   border: 1px dashed #cbd8e3;
   border-radius: 14px;
   background: #fafcfd;
+  transition: all 0.25s ease;
+}
+
+.file-upload-box:hover {
+  border-color: #286aa9;
+  background: #f4f9fd;
 }
 
 .file-empty {
@@ -5791,26 +6055,27 @@ main {
 }
 
 .file-upload-icon {
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
-  border-radius: 9px;
+  border-radius: 10px;
   background: #eaf3fa;
   color: #286aa9;
 }
 
 .file-empty strong {
   color: #41586e;
-  font-size: 10px;
+  font-size: 11px;
+  font-weight: 700;
 }
 
 .file-empty > span {
   margin-top: 4px;
   color: #9ba8b4;
-  font-size: 8px;
+  font-size: 9px;
 }
 
 .file-selected {
@@ -5818,18 +6083,18 @@ main {
   min-height: 125px;
   display: flex;
   align-items: center;
-  gap: 11px;
+  gap: 12px;
   padding: 18px;
 }
 
 .file-selected-icon {
   flex: 0 0 auto;
-  width: 37px;
-  height: 37px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 9px;
+  border-radius: 10px;
   background: #eaf3fa;
   color: #286aa9;
 }
@@ -5844,7 +6109,7 @@ main {
 .file-selected-info strong {
   overflow: hidden;
   color: #385168;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 750;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -5852,15 +6117,15 @@ main {
 
 .file-selected-info span {
   color: #9aa8b5;
-  font-size: 8px;
+  font-size: 9px;
 }
 
 .file-remove {
   position: absolute;
   top: 9px;
   right: 9px;
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5869,13 +6134,106 @@ main {
   background: #edf1f4;
   color: #667b8e;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.file-remove:hover {
+  background: #e2e8ee;
+  color: #31485f;
 }
 
 .file-upload-description {
   margin: 7px 0 0;
-  color: #9aa7b3;
-  font-size: 8px;
+  color: #899ab0;
+  font-size: 9px;
   line-height: 1.5;
+}
+
+/* =========================================================
+   CONFIRMATION CHECKBOX
+   ========================================================= */
+
+.confirmation-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #e1e8ee;
+  border-radius: 14px;
+  background: #fafcfd;
+  color: #4a5d70;
+  font-size: 11px;
+  line-height: 1.6;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.confirmation-check:hover {
+  border-color: #286aa9;
+}
+
+.confirmation-check input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.custom-checkbox {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #cbd8e3;
+  border-radius: 5px;
+  color: #ffffff;
+  background: #ffffff;
+  transition: all 0.2s ease;
+  margin-top: 1px;
+}
+
+.confirmation-check input:checked + .custom-checkbox {
+  border-color: #286aa9;
+  background: #286aa9;
+}
+
+/* =========================================================
+   RESPONSIVE OVERRIDES (MOBILE & TABLET)
+   ========================================================= */
+
+@media screen and (max-width: 640px) {
+  .tactlink-info-card {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 20px;
+  }
+
+  .tactlink-logo {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+
+  .tactlink-info-content h3 {
+    font-size: 20px;
+  }
+
+  .proof-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tactlink-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tactlink-actions .secondary-button,
+  .tactlink-actions .primary-button.small {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* =========================================================

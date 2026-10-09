@@ -21,7 +21,7 @@ export default function BandrosTour() {
     {
       id: 1,
       title: "Braga Street",
-      image: "/image/braga.png",
+      image: "/image/braga1.png",
       tag: "Spot Foto 01",
     },
     {

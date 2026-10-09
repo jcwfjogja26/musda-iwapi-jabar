@@ -1,3 +1,4 @@
+import { Calendar } from 'lucide-react';
 import RegistrationForm from '../../components/registration/RegistrationForm';
 
 export default function RegistrationPage() {
@@ -21,7 +22,15 @@ export default function RegistrationPage() {
             pendaftaran Musyawarah Daerah IWAPI Jawa Barat.
           </p>
 
-          
+          <div className="registration-deadline-card">
+  <span className="deadline-label">
+    <Calendar size={13} />
+    BATAS PENDAFTARAN
+  </span>
+  <span className="deadline-time">
+    9 Nov 2026, 15.00 WIB
+  </span>
+</div>
         </div>
 
         <div className="registration-hero-circle" />

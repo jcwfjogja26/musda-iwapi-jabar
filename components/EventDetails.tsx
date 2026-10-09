@@ -3,6 +3,8 @@ import {
   Clock3,
   MapPin,
   UsersRound,
+  Gift,
+  Calendar,
 } from "lucide-react";
 
 const details = [
@@ -55,7 +57,18 @@ export default function EventDetails() {
           </p>
         </div>
 
-        <div className="event-detail-grid">
+        {/* 1. AGENDA UTAMA (JARAK DIKECILKAN KE 12PX) */}
+        <div className="event-period" style={{ marginBottom: "12px" }}>
+          <span>AGENDA UTAMA</span>
+
+          <div>
+            <strong>Pemilihan Ketua DPD IWAPI Jawa Barat</strong>
+            <p>Periode kepengurusan 2027 — 2032</p>
+          </div>
+        </div>
+
+        {/* 2. GRID 4 KARTU DETAIL (GAP DILANTAI JADI 12PX) */}
+        <div className="event-detail-grid" style={{ marginTop: "0", gap: "12px" }}>
           {details.map((item) => {
             const Icon = item.icon;
 
@@ -78,13 +91,23 @@ export default function EventDetails() {
           })}
         </div>
 
-        <div className="event-period">
-          <span>AGENDA UTAMA</span>
+        {/* 3. BANNER DEADLINE & BENEFIT GOODIE BAG (JARAK ATAS DIKECILKAN KE 12PX) */}
+        <div className="event-registration-promo" style={{ marginTop: "12px" }}>
+          <div className="promo-badge-group">
+            <span className="promo-badge-deadline">
+              <Calendar size={14} />
+              Batas Pendaftaran: 9 Nov 2026 · 15.00 WIB
+            </span>
 
-          <div>
-            <strong>Pemilihan Ketua DPD IWAPI Jawa Barat</strong>
-            <p>Periode kepengurusan 2027 — 2032</p>
+            <span className="promo-badge-gift">
+              <Gift size={14} />
+              FREE GOODIE BAG
+            </span>
           </div>
+
+          <p className="promo-text">
+            Daftar sebelum tanggal <strong>9 November 2026, 15.00 WIB</strong> untuk mendapatkan <strong>Free Goodie Bag eksklusif</strong> MUSDA IWAPI Jawa Barat!
+          </p>
         </div>
       </div>
 
