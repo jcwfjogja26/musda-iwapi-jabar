@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { createServerClient } from '@supabase/ssr';
@@ -24,7 +23,6 @@ async function authorizeAdmin() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-  // Gagal tertutup jika konfigurasi keamanan belum lengkap.
   if (!adminEmail || !supabaseUrl || !supabaseAnonKey) {
     console.error('Konfigurasi autentikasi admin belum lengkap.');
     return { authorized: false as const, status: 500 };
@@ -47,7 +45,6 @@ async function authorizeAdmin() {
             });
           } catch {
             // Cookie mungkin tidak bisa diubah pada konteks tertentu.
-            // Validasi user tetap dilakukan di bawah.
           }
         },
       },
@@ -86,6 +83,7 @@ export async function GET() {
       );
     }
 
+    // Kolom 'city' dihapus karena tidak ada di database, digantikan sepenuhnya oleh 'dpc'
     const { data, error } = await supabaseAdmin
       .from('registrations')
       .select(`
@@ -94,8 +92,11 @@ export async function GET() {
         full_name,
         whatsapp,
         email,
-        city,
         dpc,
+        business_field,
+        brand_name,
+        business_duration,
+        expected_iwapi_benefits,
         created_at,
         tactlink_download_proof_url,
         payment_proof_url,
@@ -164,8 +165,11 @@ export async function GET() {
           full_name: item.full_name,
           whatsapp: item.whatsapp,
           email: item.email ?? '',
-          city: item.city,
-          dpc: item.dpc,
+          dpc: item.dpc ?? '-',
+          business_field: item.business_field ?? '-',
+          brand_name: item.brand_name ?? '-',
+          business_duration: item.business_duration ?? '-',
+          expected_iwapi_benefits: item.expected_iwapi_benefits ?? '-',
           created_at: item.created_at,
           downloadProofUrl,
           paymentProofUrl,

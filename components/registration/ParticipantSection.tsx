@@ -11,8 +11,11 @@ interface ParticipantData {
   fullName: string;
   whatsapp: string;
   email: string;
-  city: string;
   dpc: string;
+  businessField: string;
+  brandName: string;
+  businessDuration: string;
+  expectedIwapiBenefits: string;
 }
 
 interface ParticipantSectionProps {
@@ -20,36 +23,6 @@ interface ParticipantSectionProps {
   onChange: (data: ParticipantData) => void;
   onNext: () => void;
 }
-
-const cities = [
-  'Bandung',
-  'Banjar',
-  'Bekasi',
-  'Bogor',
-  'Cimahi',
-  'Cirebon',
-  'Depok',
-  'Sukabumi',
-  'Tasikmalaya',
-  'Kabupaten Bandung',
-  'Kabupaten Bandung Barat',
-  'Kabupaten Bekasi',
-  'Kabupaten Bogor',
-  'Kabupaten Ciamis',
-  'Kabupaten Cianjur',
-  'Kabupaten Cirebon',
-  'Kabupaten Garut',
-  'Kabupaten Indramayu',
-  'Kabupaten Karawang',
-  'Kabupaten Kuningan',
-  'Kabupaten Majalengka',
-  'Kabupaten Pangandaran',
-  'Kabupaten Purwakarta',
-  'Kabupaten Subang',
-  'Kabupaten Sukabumi',
-  'Kabupaten Sumedang',
-  'Kabupaten Tasikmalaya',
-];
 
 const dpcOptions = [
   'Kabupaten Bandung',
@@ -81,6 +54,13 @@ const dpcOptions = [
   'Kota Tasikmalaya',
 ];
 
+const businessDurationOptions = [
+  '< 1 tahun',
+  '1–3 tahun',
+  '4–5 tahun',
+  '> 5 tahun',
+];
+
 function SearchableField({
   label,
   value,
@@ -103,9 +83,7 @@ function SearchableField({
 
     return options
       .filter((option) =>
-        option
-          .toLowerCase()
-          .includes(value.toLowerCase())
+        option.toLowerCase().includes(value.toLowerCase())
       )
       .slice(0, 8);
   }, [options, value]);
@@ -132,9 +110,7 @@ function SearchableField({
 
         <ChevronDown
           size={16}
-          className={
-            open ? 'search-chevron-open' : ''
-          }
+          className={open ? 'search-chevron-open' : ''}
         />
       </div>
 
@@ -158,10 +134,7 @@ function SearchableField({
                 }}
               >
                 <span>{option}</span>
-
-                {value === option && (
-                  <Check size={15} />
-                )}
+                {value === option && <Check size={15} />}
               </button>
             ))}
           </div>
@@ -179,8 +152,11 @@ export default function ParticipantSection({
   const canContinue =
     Boolean(data.fullName.trim()) &&
     Boolean(data.whatsapp.trim()) &&
-    Boolean(data.city.trim()) &&
-    Boolean(data.dpc.trim());
+    Boolean(data.dpc.trim()) &&
+    Boolean(data.businessField.trim()) &&
+    Boolean(data.brandName.trim()) &&
+    Boolean(data.businessDuration.trim()) &&
+    Boolean(data.expectedIwapiBenefits.trim());
 
   function update(
     field: keyof ParticipantData,
@@ -188,7 +164,10 @@ export default function ParticipantSection({
   ) {
     onChange({
       ...data,
-      [field]: value,
+      [field]:
+        field === 'expectedIwapiBenefits'
+          ? value.slice(0, 500)
+          : value,
     });
   }
 
@@ -205,9 +184,9 @@ export default function ParticipantSection({
           <h2>Kenali peserta MUSDA</h2>
 
           <p>
-            Lengkapi informasi dasar berikut untuk kebutuhan
-            pendataan peserta Musyawarah Daerah IWAPI Jawa
-            Barat.
+            Lengkapi informasi diri dan usaha Anda untuk
+            kebutuhan pendataan peserta Musyawarah Daerah
+            IWAPI Jawa Barat.
           </p>
         </div>
 
@@ -222,10 +201,7 @@ export default function ParticipantSection({
               value={data.fullName}
               placeholder="Masukkan nama lengkap"
               onChange={(event) =>
-                update(
-                  'fullName',
-                  event.target.value
-                )
+                update('fullName', event.target.value)
               }
             />
           </div>
@@ -240,10 +216,7 @@ export default function ParticipantSection({
               value={data.whatsapp}
               placeholder="Contoh: 081234567890"
               onChange={(event) =>
-                update(
-                  'whatsapp',
-                  event.target.value
-                )
+                update('whatsapp', event.target.value)
               }
             />
           </div>
@@ -258,33 +231,97 @@ export default function ParticipantSection({
               value={data.email}
               placeholder="nama@email.com"
               onChange={(event) =>
-                update(
-                  'email',
-                  event.target.value
-                )
+                update('email', event.target.value)
               }
             />
           </div>
-
-          <SearchableField
-            label="Kota Asal"
-            value={data.city}
-            placeholder="Ketik nama kota..."
-            options={cities}
-            onChange={(value) =>
-              update('city', value)
-            }
-          />
 
           <SearchableField
             label="DPC / Kabupaten / Kota"
             value={data.dpc}
             placeholder="Cari DPC..."
             options={dpcOptions}
-            onChange={(value) =>
-              update('dpc', value)
-            }
+            onChange={(value) => update('dpc', value)}
           />
+
+          <div className="field-group">
+            <label className="field-label">
+              Bidang Usaha <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              value={data.businessField}
+              placeholder="Contoh: Kuliner, fashion, jasa"
+              onChange={(event) =>
+                update('businessField', event.target.value)
+              }
+            />
+          </div>
+
+          <div className="field-group">
+            <label className="field-label">
+              Nama Brand <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              value={data.brandName}
+              placeholder="Masukkan nama brand usaha"
+              onChange={(event) =>
+                update('brandName', event.target.value)
+              }
+            />
+          </div>
+
+          {/* DIBUAT DROPDOWN SELECT RAPI & SAMA SEPERTI INPUT LAIN */}
+          <div className="field-group full-width">
+            <label className="field-label">
+              Lama Usaha <span>*</span>
+            </label>
+
+            <div className="select-input-wrap">
+              <select
+                value={data.businessDuration}
+                onChange={(e) => update('businessDuration', e.target.value)}
+                className="select-field"
+              >
+                <option value="" disabled hidden>
+                  Pilih lama usaha...
+                </option>
+                {businessDurationOptions.map((option) => (
+                  <option key={option} value={option}>
+                    {option}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown size={16} className="select-chevron" />
+            </div>
+          </div>
+
+          <div className="field-group full-width">
+            <label className="field-label">
+              Manfaat yang Diharapkan Selama Bergabung di IWAPI{' '}
+              <span>*</span>
+            </label>
+
+            <textarea
+              value={data.expectedIwapiBenefits}
+              placeholder="Ceritakan manfaat atau dukungan yang Anda harapkan dari IWAPI..."
+              maxLength={500}
+              rows={4}
+              onChange={(event) =>
+                update(
+                  'expectedIwapiBenefits',
+                  event.target.value
+                )
+              }
+            />
+
+            <div className="character-counter">
+              {data.expectedIwapiBenefits.length}/500 karakter
+            </div>
+          </div>
         </div>
 
         <div className="registration-section-footer">
@@ -299,7 +336,6 @@ export default function ParticipantSection({
             disabled={!canContinue}
             onClick={onNext}
           >
-            
             <span>Lanjut</span>
           </button>
         </div>

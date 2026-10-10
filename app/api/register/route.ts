@@ -2,9 +2,11 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabaseServer';
 
 export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 const BUCKET_NAME = 'registration-proofs';
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
+const MAX_BENEFITS_LENGTH = 500;
 
 const ALLOWED_TYPES = [
   'image/jpeg',
@@ -19,7 +21,10 @@ async function uploadProof(
   registrationId: string,
   folder: ProofFolder
 ) {
-  const extensionFromName = file.name.split('.').pop()?.toLowerCase();
+  const extensionFromName = file.name
+    .split('.')
+    .pop()
+    ?.toLowerCase();
 
   const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 
@@ -27,10 +32,10 @@ async function uploadProof(
     extensionFromName && allowedExtensions.includes(extensionFromName)
       ? extensionFromName
       : file.type === 'image/png'
-      ? 'png'
-      : file.type === 'image/webp'
-      ? 'webp'
-      : 'jpg';
+        ? 'png'
+        : file.type === 'image/webp'
+          ? 'webp'
+          : 'jpg';
 
   const filePath = `${registrationId}/${folder}.${extension}`;
   const buffer = Buffer.from(await file.arrayBuffer());
@@ -43,38 +48,74 @@ async function uploadProof(
     });
 
   if (error) {
-    throw new Error(`Upload ${folder} ke Supabase gagal: ${error.message}`);
+    throw new Error(
+      `Upload ${folder} ke Supabase gagal: ${error.message}`
+    );
   }
 
-  return {
-    filePath,
-    base64: buffer.toString('base64'),
-    mimeType: file.type,
-    fileName: `${folder}.${extension}`,
-  };
+  return { filePath };
 }
 
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
 
+    // Data peserta
     const fullName = String(formData.get('fullName') || '').trim();
     const whatsapp = String(formData.get('whatsapp') || '').trim();
     const email = String(formData.get('email') || '').trim();
-    const city = String(formData.get('city') || '').trim();
     const dpc = String(formData.get('dpc') || '').trim();
 
+    // Data usaha
+    const businessField = String(
+      formData.get('businessField') || ''
+    ).trim();
+
+    const brandName = String(
+      formData.get('brandName') || ''
+    ).trim();
+
+    const businessDuration = String(
+      formData.get('businessDuration') || ''
+    ).trim();
+
+    const expectedIwapiBenefits = String(
+      formData.get('expectedIwapiBenefits') || ''
+    ).trim();
+
+    // Konfirmasi dan bukti
     const tactlinkDownloaded =
       formData.get('tactlinkDownloaded') === 'true';
 
     const downloadProof = formData.get('downloadProof');
     const paymentProof = formData.get('paymentProof');
 
-    if (!fullName || !whatsapp || !city || !dpc) {
+    // Validasi data wajib
+    if (
+      !fullName ||
+      !whatsapp ||
+      !dpc ||
+      !businessField ||
+      !brandName ||
+      !businessDuration ||
+      !expectedIwapiBenefits
+    ) {
       return NextResponse.json(
         {
           success: false,
-          message: 'Nama, WhatsApp, kota, dan DPC wajib diisi.',
+          message:
+            'Nama, WhatsApp, DPC, bidang usaha, nama brand, lama usaha, dan manfaat yang diharapkan wajib diisi.',
+        },
+        { status: 400 }
+      );
+    }
+
+    if (expectedIwapiBenefits.length > MAX_BENEFITS_LENGTH) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            'Manfaat yang diharapkan maksimal 500 karakter.',
         },
         { status: 400 }
       );
@@ -110,6 +151,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validasi tipe dan ukuran file
     for (const item of [
       { file: downloadProof, label: 'Bukti download TactLink' },
       { file: paymentProof, label: 'Bukti pembayaran' },
@@ -135,6 +177,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Simpan data registrasi tanpa kolom city
     const { data: registration, error: registrationError } =
       await supabaseAdmin
         .from('registrations')
@@ -142,15 +185,21 @@ export async function POST(request: NextRequest) {
           full_name: fullName,
           whatsapp,
           email: email || null,
-          city,
           dpc,
+          business_field: businessField,
+          brand_name: brandName,
+          business_duration: businessDuration,
+          expected_iwapi_benefits: expectedIwapiBenefits,
           tactlink_downloaded: true,
         })
         .select()
         .single();
 
     if (registrationError || !registration) {
-      console.error('Registration insert error:', registrationError);
+      console.error(
+        'Registration insert error:',
+        registrationError
+      );
 
       return NextResponse.json(
         {
@@ -165,6 +214,7 @@ export async function POST(request: NextRequest) {
 
     const registrationId = registration.id;
 
+    // Upload bukti ke Supabase Storage
     const download = await uploadProof(
       downloadProof,
       registrationId,
@@ -177,6 +227,7 @@ export async function POST(request: NextRequest) {
       'payment'
     );
 
+    // Simpan path bukti ke database
     const { error: updateError } = await supabaseAdmin
       .from('registrations')
       .update({
@@ -190,10 +241,6 @@ export async function POST(request: NextRequest) {
         `Path bukti gagal disimpan ke database: ${updateError.message}`
       );
     }
-
-    // ============================================
-    // SUCCESS
-    // ============================================
 
     return NextResponse.json({
       success: true,

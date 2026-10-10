@@ -11,8 +11,11 @@ type ParticipantData = {
   fullName: string;
   whatsapp: string;
   email: string;
-  city: string;
   dpc: string;
+  businessField: string;
+  brandName: string;
+  businessDuration: string;
+  expectedIwapiBenefits: string;
 };
 
 export default function RegistrationForm() {
@@ -23,8 +26,11 @@ export default function RegistrationForm() {
       fullName: '',
       whatsapp: '',
       email: '',
-      city: '',
       dpc: '',
+      businessField: '',
+      brandName: '',
+      businessDuration: '',
+      expectedIwapiBenefits: '',
     });
 
   const [tactlinkDownloaded, setTactlinkDownloaded] =
@@ -37,15 +43,12 @@ export default function RegistrationForm() {
     useState<File | null>(null);
 
   const [loading, setLoading] = useState(false);
-
-  // Menggunakan state boolean untuk indikator pendaftaran berhasil
   const [isSuccess, setIsSuccess] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
   const tactlinkRef = useRef<HTMLDivElement>(null);
   const paymentRef = useRef<HTMLDivElement>(null);
 
-  // Mengarahkan ke halaman /explore setelah 4.5 detik saat isSuccess bernilai true
   useEffect(() => {
     if (!isSuccess) {
       return;
@@ -53,27 +56,29 @@ export default function RegistrationForm() {
 
     const timer = window.setTimeout(() => {
       window.location.href = '/explore';
-    }, 4500);
+    }, 2500);
 
     return () => window.clearTimeout(timer);
   }, [isSuccess]);
 
   function handleParticipantNext() {
     setCurrentStep(2);
+
     setTimeout(() => {
       tactlinkRef.current?.scrollIntoView({
         behavior: 'smooth',
-        block: 'center', // Scroll pas di tengah section TactLink tanpa melompat ke atas halaman
+        block: 'center',
       });
     }, 100);
   }
 
   function handleTactLinkNext() {
     setCurrentStep(3);
+
     setTimeout(() => {
       paymentRef.current?.scrollIntoView({
         behavior: 'smooth',
-        block: 'center', // Scroll pas di tengah section Payment tanpa melompat ke atas halaman
+        block: 'center',
       });
     }, 100);
   }
@@ -88,29 +93,34 @@ export default function RegistrationForm() {
     try {
       const formData = new FormData();
 
+      // Data peserta
       formData.append('fullName', participant.fullName);
       formData.append('whatsapp', participant.whatsapp);
       formData.append('email', participant.email);
-      formData.append('city', participant.city);
       formData.append('dpc', participant.dpc);
 
+      // Data usaha
+      formData.append('businessField', participant.businessField);
+      formData.append('brandName', participant.brandName);
+      formData.append('businessDuration', participant.businessDuration);
+      formData.append(
+        'expectedIwapiBenefits',
+        participant.expectedIwapiBenefits.slice(0, 500)
+      );
+
+      // Data TactLink
       formData.append(
         'tactlinkDownloaded',
         String(tactlinkDownloaded)
       );
 
       if (downloadProof) {
-        formData.append(
-          'downloadProof',
-          downloadProof
-        );
+        formData.append('downloadProof', downloadProof);
       }
 
+      // Bukti pembayaran
       if (paymentProof) {
-        formData.append(
-          'paymentProof',
-          paymentProof
-        );
+        formData.append('paymentProof', paymentProof);
       }
 
       const response = await fetch('/api/register', {
@@ -127,7 +137,6 @@ export default function RegistrationForm() {
         );
       }
 
-      // Ubah status menjadi berhasil
       setIsSuccess(true);
     } catch (error) {
       const message =
@@ -165,9 +174,7 @@ export default function RegistrationForm() {
                   downloadProof={downloadProof}
                   downloaded={tactlinkDownloaded}
                   onDownloadProofChange={setDownloadProof}
-                  onDownloadedChange={
-                    setTactlinkDownloaded
-                  }
+                  onDownloadedChange={setTactlinkDownloaded}
                   onNext={handleTactLinkNext}
                 />
               </div>
@@ -187,7 +194,6 @@ export default function RegistrationForm() {
         </div>
       </section>
 
-      {/* Menampilkan modal success jika isSuccess true */}
       {isSuccess && <RegistrationSuccess />}
     </>
   );

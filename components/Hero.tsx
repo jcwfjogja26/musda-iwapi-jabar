@@ -9,7 +9,8 @@ export default function Hero() {
         <div className="hero-glow hero-glow-two" />
       </div>
 
-      <div className="hero-container">
+      {/* Menambahkan inline style paddingTop tipis agar langsung naik pas di bawah navbar */}
+      <div className="hero-container" style={{ paddingTop: '120px' }}>
         <div className="hero-copy">
           <div className="hero-eyebrow">
             <span className="hero-eyebrow-line" />
@@ -22,20 +23,18 @@ export default function Hero() {
             <strong>JAWA BARAT</strong>
           </h1>
 
-          {/* SUB-HEADING TANGGAL & VENUE */}
-          
-{/* 2 KARTU PILL TERPISAH (TANGGAL & LOKASI) */}
-<div className="hero-event-pills">
-  <div className="hero-event-pill">
-    <Calendar size={15} />
-    <span>Rabu, 18 November 2026</span>
-  </div>
+          {/* 2 KARTU PILL TERPISAH (TANGGAL & LOKASI) */}
+          <div className="hero-event-pills">
+            <div className="hero-event-pill">
+              <Calendar size={15} />
+              <span>Rabu, 18 November 2026</span>
+            </div>
 
-  <div className="hero-event-pill">
-    <MapPin size={15} />
-    <span>Grand Asrilia Hotel - Bandung</span>
-  </div>
-</div>
+            <div className="hero-event-pill">
+              <MapPin size={15} />
+              <span>Grand Asrilia Hotel - Bandung</span>
+            </div>
+          </div>
 
           {/* CARD POSTER MUSDA */}
           <div className="hero-poster-card">

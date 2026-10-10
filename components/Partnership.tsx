@@ -11,10 +11,12 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 
-// Interface untuk tipe data poin agar lebih rapi & safe di TypeScript
+// Interface tipe data poin
 interface PointItem {
   text: string;
   image?: string;
+  subImageTitle?: string;
+  subImage?: string;
 }
 
 interface PartnershipItem {
@@ -23,7 +25,6 @@ interface PartnershipItem {
   title: string;
   description: string;
   icon: any;
-  featuredImage?: string; // Diubah menjadi single string untuk 1 foto utama
   points: PointItem[];
 }
 
@@ -35,8 +36,6 @@ const partnershipItems: PartnershipItem[] = [
     description:
       "Dukungan penempatan logo dan eksposur profil pengurus pada materi publikasi resmi Musda IWAPI Jawa Barat.",
     icon: Building2,
-    // Satu foto utama yang muncul di bagian paling atas dropdown
-    featuredImage: "/image/sponsor-banner.png", // Ganti dengan path foto utama Anda
     points: [
       {
         text: "Logo Perusahaan tayang di ½ Slide Infocus & tertera di Proposal (Rp 350.000,- untuk Internal + Umum)",
@@ -45,6 +44,8 @@ const partnershipItems: PartnershipItem[] = [
       {
         text: "Nama, Foto, dan Jabatan di IWAPI tertera di Baligo (Rp 1.000.000,- sudah termasuk fee Musda, tersebar di 30 Baligo se-Jawa Barat)",
         image: "/image/sponsorbaligo.png",
+        subImageTitle: "Contoh penempatan & suasana lokasi baligo:",
+        subImage: "/image/sponsor-banner.png",
       },
     ],
   },
@@ -192,33 +193,6 @@ export default function Partnership() {
 
                 <div className="partnership-card-detail" aria-hidden={!isOpen}>
                   <div className="partnership-detail-inner">
-                    {/* FOTO UTAMA ATAS (Satu Foto Full Width) */}
-                    {/* FOTO UTAMA ATAS (DENGAN JARAK SPASI BAWAH YANG LEBIH LUAS) */}
-{/* FOTO UTAMA ATAS (DENGAN INLINE MARGIN-BOTTOM DIPAKSA 32PX) */}
-{item.featuredImage && (
-  <div 
-    className="w-full overflow-hidden rounded-xl border border-gray-200 shadow-sm"
-    style={{ 
-      position: 'relative', 
-      width: '100%', 
-      marginBottom: '32px' /* Mengunci jarak ke poin 1 agar merenggang dan tidak mepet */
-    }}
-  >
-    <img
-      src={item.featuredImage}
-      alt={`Dokumentasi ${item.title}`}
-      style={{
-        width: '100%',
-        height: 'auto',
-        maxHeight: '450px',
-        objectFit: 'contain',
-        borderRadius: '12px',
-        display: 'block'
-      }}
-    />
-  </div>
-)}
-
                     {/* POIN-POIN SPONSORSHIP */}
                     {item.points.map((point, ptIdx) => (
                       <div
@@ -228,15 +202,35 @@ export default function Partnership() {
                         <span />
                         <div className="partnership-detail-content">
                           <p>{point.text}</p>
+
+                          {/* FOTO UTAMA UNTUK POIN */}
                           {point.image && (
-                            <div className="partnership-point-image mt-3 overflow-hidden rounded-xl border border-gray-200">
+                            <div className="partnership-point-image">
                               <Image
                                 src={point.image}
                                 alt={`Contoh ${point.text}`}
-                                width={600}
-                                height={400}
-                                className="w-full max-w-md h-auto object-cover rounded-lg"
+                                width={480}
+                                height={320}
                               />
+                            </div>
+                          )}
+
+                          {/* SUB FOTO TAMBAHAN (CONTOH PENEMPATAN BALIGO) */}
+                          {point.subImage && (
+                            <div>
+                              {point.subImageTitle && (
+                                <span className="partnership-subimage-label">
+                                  {point.subImageTitle}
+                                </span>
+                              )}
+                              <div className="partnership-point-image">
+                                <Image
+                                  src={point.subImage}
+                                  alt="Contoh penempatan baligo"
+                                  width={550}
+                                  height={300}
+                                />
+                              </div>
                             </div>
                           )}
                         </div>

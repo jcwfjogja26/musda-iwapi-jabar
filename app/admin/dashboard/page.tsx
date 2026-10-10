@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
@@ -8,12 +7,14 @@ import './dashboard.css';
 
 interface Registration {
   id: string;
-  registration_code: string;
   full_name: string;
   whatsapp: string;
   email: string;
-  city: string;
   dpc: string;
+  business_field: string;
+  brand_name: string;
+  business_duration: string;
+  expected_iwapi_benefits: string;
   created_at: string;
   status: 'Pending' | 'Verified';
   downloadProofUrl: string | null;
@@ -172,12 +173,13 @@ export default function AdminDashboardPage() {
     const keyword = search.toLowerCase();
 
     return [
-      reg.registration_code,
       reg.full_name,
       reg.whatsapp,
       reg.email,
-      reg.city,
       reg.dpc,
+      reg.business_field,
+      reg.brand_name,
+      reg.business_duration,
     ].some((val) =>
       (val ?? '').toLowerCase().includes(keyword)
     );
@@ -312,7 +314,7 @@ export default function AdminDashboardPage() {
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Cari nama, WhatsApp, email, kota, DPC..."
+              placeholder="Cari nama, WhatsApp, email, brand, DPC..."
               className="admin-search"
             />
           </div>
@@ -335,17 +337,22 @@ export default function AdminDashboardPage() {
               Belum ada data pendaftaran.
             </div>
           ) : (
-            <div className="admin-table-wrapper">
+            <div className="admin-table-wrapper" style={{ overflowX: 'auto' }}>
               <table className="admin-table">
                 <thead>
                   <tr>
-                    <th>Peserta</th>
-                    <th>Kontak</th>
-                    <th>Lokasi</th>
+                    <th>Nama Lengkap</th>
+                    <th>WhatsApp</th>
+                    <th>Email</th>
+                    <th>DPC</th>
+                    <th>Bidang Usaha</th>
+                    <th>Nama Brand</th>
+                    <th>Lama Usaha</th>
+                    <th>Manfaat Diharapkan</th>
                     <th>Bukti Download</th>
                     <th>Bukti Pembayaran</th>
-                    <th>Waktu</th>
-                    <th>Status Peserta</th>
+                    <th>Waktu Pendaftaran</th>
+                    <th>Status</th>
                     <th style={{ textAlign: 'center' }}>Aksi</th>
                   </tr>
                 </thead>
@@ -353,31 +360,63 @@ export default function AdminDashboardPage() {
                 <tbody>
                   {filtered.map((reg) => (
                     <tr key={reg.id}>
-                      {/* NAMA PESERTA */}
+                      {/* NAMA LENGKAP */}
                       <td>
                         <div className="admin-participant-name">
                           {reg.full_name}
                         </div>
                       </td>
 
-                      {/* KONTAK */}
+                      {/* WHATSAPP */}
                       <td>
                         <div style={{ fontWeight: 600 }}>
                           {reg.whatsapp}
                         </div>
+                      </td>
+
+                      {/* EMAIL */}
+                      <td>
                         <div className="admin-muted">
                           {reg.email || '-'}
                         </div>
                       </td>
 
-                      {/* LOKASI */}
+                      {/* DPC */}
                       <td>
-                        <div>{reg.city || '-'}</div>
+                        <div style={{ fontWeight: 600 }}>
+                          {reg.dpc || '-'}
+                        </div>
+                      </td>
+
+                      {/* BIDANG USAHA */}
+                      <td>
+                        <div>{reg.business_field || '-'}</div>
+                      </td>
+
+                      {/* NAMA BRAND */}
+                      <td>
+                        <div style={{ fontWeight: 600 }}>
+                          {reg.brand_name || '-'}
+                        </div>
+                      </td>
+
+                      {/* LAMA USAHA */}
+                      <td>
+                        <div>{reg.business_duration || '-'}</div>
+                      </td>
+
+                      {/* MANFAAT DIHARAPKAN */}
+                      <td>
                         <div
-                          className="admin-muted"
-                          style={{ fontWeight: 600 }}
+                          style={{
+                            maxWidth: '220px',
+                            whiteSpace: 'normal',
+                            fontSize: '12px',
+                            lineHeight: '1.4',
+                            color: '#475569',
+                          }}
                         >
-                          DPC {reg.dpc || '-'}
+                          {reg.expected_iwapi_benefits || '-'}
                         </div>
                       </td>
 
@@ -462,7 +501,7 @@ export default function AdminDashboardPage() {
                         <div
                           className="admin-muted"
                           style={{
-                            marginTop: 0,
+                            whiteSpace: 'nowrap',
                             fontWeight: 600,
                           }}
                         >

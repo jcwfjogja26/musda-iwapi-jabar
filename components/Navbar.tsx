@@ -2,7 +2,6 @@
 
 import { ArrowRight, Menu, X } from "lucide-react";
 import { useState } from "react";
-import Image from 'next/image';
 
 const navItems = [
   { label: "Tentang", href: "#tentang" },
@@ -20,18 +19,18 @@ export default function Navbar() {
       <header className="navbar">
         <div className="navbar-inner">
           <a href="#" className="navbar-brand">
-  <div className="navbar-logo-img">
-    <img
-      src="/image/iwapi-jabar.png"
-      alt="Logo IWAPI Jawa Barat"
-    />
-  </div>
+            <div className="navbar-logo-img">
+              <img
+                src="/image/iwapi-jabar.png"
+                alt="Logo IWAPI Jawa Barat"
+              />
+            </div>
 
-  <span className="navbar-brand-text">
-    <strong>IWAPI</strong>
-    <small>JAWA BARAT</small>
-  </span>
-</a>
+            <span className="navbar-brand-text">
+              <strong>IWAPI</strong>
+              <small>JAWA BARAT</small>
+            </span>
+          </a>
 
           <nav className="navbar-links">
             {navItems.map((item) => (
@@ -65,7 +64,12 @@ export default function Navbar() {
                 className="navbar-brand"
                 onClick={() => setOpen(false)}
               >
-                <span className="navbar-logo">I</span>
+                <div className="navbar-logo-img">
+                  <img
+                    src="/image/iwapi-jabar.png"
+                    alt="Logo IWAPI Jawa Barat"
+                  />
+                </div>
 
                 <span className="navbar-brand-text">
                   <strong>IWAPI</strong>
