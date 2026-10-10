@@ -2,16 +2,14 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr"; // <-- PENTING: Gunakan SSR Client
 import "./login.css";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-const supabase =
-  supabaseUrl && supabaseAnonKey
-    ? createClient(supabaseUrl, supabaseAnonKey)
-    : null;
+// Inisialisasi Klien Browser SSR agar Cookie tersimpan dengan benar di Production (HTTPS)
+const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -27,12 +25,6 @@ export default function AdminLoginPage() {
     setError("");
 
     try {
-      if (!supabase) {
-        throw new Error(
-          "Konfigurasi Supabase belum tersedia. Periksa Environment Variables di Vercel."
-        );
-      }
-
       const { data, error: loginError } =
         await supabase.auth.signInWithPassword({
           email: email.trim(),
@@ -49,8 +41,9 @@ export default function AdminLoginPage() {
 
       console.log("Login berhasil. Mengarahkan ke dashboard.");
 
-      router.replace("/admin/dashboard");
+      // Beri jeda kecil / paksa refresh agar middleware membaca cookie terbaru
       router.refresh();
+      router.replace("/admin/dashboard");
     } catch (err) {
       console.error("Admin login error:", err);
 
