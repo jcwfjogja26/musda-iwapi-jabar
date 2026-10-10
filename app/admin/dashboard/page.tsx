@@ -349,7 +349,7 @@ export default function AdminDashboardPage() {
                     <th>Nama Brand</th>
                     <th>Lama Usaha</th>
                     <th>Manfaat Diharapkan</th>
-                    <th>Bukti Download</th>
+                    <th>Bukti Download/RSVP</th>
                     <th>Bukti Pembayaran</th>
                     <th>Waktu Pendaftaran</th>
                     <th>Status</th>

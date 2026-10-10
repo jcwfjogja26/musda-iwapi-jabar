@@ -139,80 +139,79 @@ export default function TactLinkSection({
           </div>
         </div>
 
-        {/* UNGGUH BUKTI DOWNLOAD */}
-        <div style={{ marginBottom: '32px' }}>
+        {/* --- LANGKAH 2: LAKUKAN RSVP --- */}
+        <div className="tactlink-info-card" style={{ marginTop: '12px', marginBottom: '28px' }}>
+          <div className="tactlink-logo" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8' }}>
+            <QrCode size={24} />
+          </div>
+
+          <div className="tactlink-info-content">
+            <span className="info-card-label">LANGKAH 2</span>
+
+            <h3>Lakukan RSVP &amp; Scan QR Acara MUSDA</h3>
+
+            <p>
+              Buka aplikasi TactLink yang sudah terpasang, lalu pindai (scan) QR Code di bawah ini atau tekan tombol link RSVP untuk mengonfirmasi kehadiran Anda.
+            </p>
+
+            <div className="tactlink-actions">
+              <a
+                href={TACTLINK_TUTORIAL_SCAN_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="secondary-button"
+              >
+                <Play size={15} fill="currentColor" />
+                <span>Tutorial Scan QR</span>
+              </a>
+
+              <a
+                href={TACTLINK_RSVP_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="primary-button small"
+              >
+                <span>Buka Link RSVP TactLink</span>
+                <ExternalLink size={15} />
+              </a>
+            </div>
+
+            {/* QR CODE CARD */}
+            <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#38bdf8' }}>
+                Pindai QR Code via Aplikasi TactLink:
+              </span>
+              <div
+                style={{
+                  background: '#ffffff',
+                  padding: '16px',
+                  borderRadius: '20px',
+                  width: 'fit-content',
+                  border: '1px solid rgba(56, 189, 248, 0.3)',
+                  boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
+                }}
+              >
+                <Image
+                  src="/image/qr-rsvp.png"
+                  alt="QR Code RSVP TactLink MUSDA IWAPI Jabar"
+                  width={200}
+                  height={280}
+                  style={{ objectFit: 'contain', borderRadius: '10px' }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* --- AREA UPLOAD BUKTI (DITARUH DI PALING BAWAH TEPAT SEBELUM CHECKLIST) --- */}
+        <div style={{ marginBottom: '28px' }}>
           <FileUpload
-            label="Bukti Download / Instalasi"
-            description="Unggah screenshot yang menunjukkan aplikasi TactLink telah terpasang di perangkat Anda."
+            label="Bukti Download / RSVP TactLink"
+            description="Unggah screenshot bukti instalasi atau konfirmasi RSVP."
             file={downloadProof}
             onChange={onDownloadProofChange}
           />
         </div>
-
-        {/* --- LANGKAH 2: LAKUKAN RSVP --- */}
-<div className="tactlink-info-card" style={{ marginTop: '12px', marginBottom: '28px' }}>
-  <div className="tactlink-logo" style={{ background: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8' }}>
-    <QrCode size={24} />
-  </div>
-
-  <div className="tactlink-info-content">
-    <span className="info-card-label">LANGKAH 2</span>
-
-    <h3>Lakukan RSVP &amp; Scan QR Acara MUSDA</h3>
-
-    <p>
-      Buka aplikasi TactLink yang sudah terpasang, lalu pindai (scan) QR Code di bawah ini atau tekan tombol link RSVP untuk mengonfirmasi kehadiran Anda.
-    </p>
-
-    {/* BUTTONS SAMA DENGAN LANGKAH 1 */}
-    <div className="tactlink-actions">
-      <a
-        href={TACTLINK_TUTORIAL_SCAN_URL}
-        target="_blank"
-        rel="noreferrer"
-        className="secondary-button"
-      >
-        <Play size={15} fill="currentColor" />
-        <span>Tutorial Scan QR</span>
-      </a>
-
-      <a
-        href={TACTLINK_RSVP_URL}
-        target="_blank"
-        rel="noreferrer"
-        className="primary-button small"
-      >
-        <span>Buka Link RSVP TactLink</span>
-        <ExternalLink size={15} />
-      </a>
-    </div>
-
-    {/* QR CODE CARD */}
-    <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <span style={{ fontSize: '13px', fontWeight: 700, color: '#38bdf8' }}>
-        Pindai QR Code via Aplikasi TactLink:
-      </span>
-      <div
-        style={{
-          background: '#ffffff',
-          padding: '16px',
-          borderRadius: '20px',
-          width: 'fit-content',
-          border: '1px solid rgba(56, 189, 248, 0.3)',
-          boxShadow: '0 10px 25px rgba(0,0,0,0.06)',
-        }}
-      >
-        <Image
-          src="/image/qr-rsvp.png"
-          alt="QR Code RSVP TactLink MUSDA IWAPI Jabar"
-          width={200}
-          height={280}
-          style={{ objectFit: 'contain', borderRadius: '10px' }}
-        />
-      </div>
-    </div>
-  </div>
-</div>
 
         {/* --- CHECKLIST KONFIRMASI --- */}
         <label className="confirmation-check" style={{ marginTop: '24px' }}>
@@ -234,7 +233,7 @@ export default function TactLinkSection({
         {/* FOOTER & TOMBOL NEXT */}
         <div className="registration-section-footer">
           <span className="step-hint">
-            Pastikan bukti unggahan instalasi dan centang konfirmasi sudah terisi.
+            Pastikan bukti unggahan dan centang konfirmasi sudah terisi.
           </span>
 
           <button

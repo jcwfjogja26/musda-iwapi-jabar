@@ -49,6 +49,7 @@ export default function RegistrationForm() {
   const tactlinkRef = useRef<HTMLDivElement>(null);
   const paymentRef = useRef<HTMLDivElement>(null);
 
+  // REDIRECT PASCA SUKSES PENDAFTARAN (DIPERSINGKAT MENJADI 1.2 DETIK)
   useEffect(() => {
     if (!isSuccess) {
       return;
@@ -56,30 +57,40 @@ export default function RegistrationForm() {
 
     const timer = window.setTimeout(() => {
       window.location.href = '/explore';
-    }, 2500);
+    }, 1200);
 
     return () => window.clearTimeout(timer);
   }, [isSuccess]);
 
+  // HANDLER PINDAH KE TACTLINK (STEP 2)
   function handleParticipantNext() {
     setCurrentStep(2);
 
     setTimeout(() => {
-      tactlinkRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
+      if (tactlinkRef.current) {
+        tactlinkRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start', // Fokus persis ke bagian teratas section TactLink
+        });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }, 100);
   }
 
+  // HANDLER PINDAH KE PEMBAYARAN (STEP 3)
   function handleTactLinkNext() {
     setCurrentStep(3);
 
     setTimeout(() => {
-      paymentRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
+      if (paymentRef.current) {
+        paymentRef.current.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start', // Fokus persis ke bagian teratas section Pembayaran
+        });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     }, 100);
   }
 
@@ -169,7 +180,7 @@ export default function RegistrationForm() {
             />
 
             {currentStep >= 2 && (
-              <div ref={tactlinkRef}>
+              <div ref={tactlinkRef} style={{ scrollMarginTop: '32px' }}>
                 <TactLinkSection
                   downloadProof={downloadProof}
                   downloaded={tactlinkDownloaded}
@@ -181,7 +192,7 @@ export default function RegistrationForm() {
             )}
 
             {currentStep >= 3 && (
-              <div ref={paymentRef}>
+              <div ref={paymentRef} style={{ scrollMarginTop: '32px' }}>
                 <PaymentSection
                   paymentProof={paymentProof}
                   onPaymentProofChange={setPaymentProof}
