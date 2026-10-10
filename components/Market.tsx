@@ -1,16 +1,6 @@
 "use client";
 
-import {
-  Search,
-  Store,
-  Utensils,
-  Shirt,
-  Palette,
-  Sparkles,
-  ShoppingBag,
-  ChevronDown,
-  ChevronUp,
-} from "lucide-react";
+import { Search, Store, ChevronDown, ChevronUp } from "lucide-react";
 import { useMemo, useState } from "react";
 
 const categories = [
@@ -22,31 +12,38 @@ const categories = [
   "Lifestyle",
 ];
 
-const categoryIcons = {
-  Kuliner: Utensils,
-  Fashion: Shirt,
-  Kerajinan: Palette,
-  Beauty: Sparkles,
-  Lifestyle: ShoppingBag,
+// Foto produk berdasarkan kategori
+const categoryPhotos: Record<string, string> = {
+  Kuliner:
+    "https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&q=90",
+
+  Fashion:
+    "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=600&q=90",
+
+  Kerajinan:
+    "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=600&q=90",
+
+  Beauty:
+    "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=90",
+
+  Lifestyle:
+    "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=600&q=90",
 };
 
-// Simulasi Data Tenant (Misal ada 50+)
+// Data tenant sementara
 const tenants = Array.from({ length: 48 }, (_, i) => {
-  const cats: (keyof typeof categoryIcons)[] = [
-    "Kuliner",
-    "Fashion",
-    "Kerajinan",
-    "Beauty",
-    "Lifestyle",
-  ];
+  const cats = ["Kuliner", "Fashion", "Kerajinan", "Beauty", "Lifestyle"];
   const cat = cats[i % cats.length];
+
   return {
-    name: `Tenant ${String.fromCharCode(65 + (i % 26))}${i >= 26 ? Math.floor(i / 26) + 1 : ""}`,
+    id: i + 1,
+    name: cat,
     category: cat,
+    image: categoryPhotos[cat],
   };
 });
 
-// Jumlah tenant yang ditampilkan pertama kali di Landing Page
+// Jumlah tenant yang ditampilkan pertama kali
 const INITIAL_LIMIT = 6;
 
 export default function Market() {
@@ -67,15 +64,18 @@ export default function Market() {
     });
   }, [search, category]);
 
-  // Jika sedang search/filter ATAU tombol diklik, tampilkan semua yang cocok
   const displayedTenants = useMemo(() => {
     if (search || category !== "Semua Kategori" || showAll) {
       return filteredTenants;
     }
+
     return filteredTenants.slice(0, INITIAL_LIMIT);
   }, [filteredTenants, search, category, showAll]);
 
-  const hasMore = filteredTenants.length > INITIAL_LIMIT && !search && category === "Semua Kategori";
+  const hasMore =
+    filteredTenants.length > INITIAL_LIMIT &&
+    !search &&
+    category === "Semua Kategori";
 
   return (
     <section className="market-v2" id="market">
@@ -154,28 +154,34 @@ export default function Market() {
         </div>
 
         <div className="tenant-grid-v2">
-          {displayedTenants.map((tenant, index) => {
-            const Icon =
-              categoryIcons[tenant.category as keyof typeof categoryIcons];
+          {displayedTenants.map((tenant) => (
+            <article
+              className="tenant-card-v2"
+              key={tenant.id}
+            >
+              <div className="tenant-logo tenant-logo-ai">
+                <img
+                  src={tenant.image}
+                  alt={`Produk kategori ${tenant.category}`}
+                  loading="lazy"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    borderRadius: "inherit",
+                  }}
+                />
+              </div>
 
-            return (
-              <article className="tenant-card-v2" key={tenant.name}>
-                <div className="tenant-card-number">
-                  {(index + 1).toString().padStart(2, "0")}
-                </div>
+              <strong>{tenant.name}</strong>
 
-                <div className="tenant-logo tenant-logo-ai">
-                  <Icon size={25} strokeWidth={1.6} />
-                </div>
+              <span className="tenant-category">
+                {tenant.category}
+              </span>
 
-                <strong>{tenant.name}</strong>
-
-                <span className="tenant-category">{tenant.category}</span>
-
-                <div className="tenant-card-dot" />
-              </article>
-            );
-          })}
+              <div className="tenant-card-dot" />
+            </article>
+          ))}
         </div>
 
         {filteredTenants.length === 0 && (
@@ -185,7 +191,6 @@ export default function Market() {
           </div>
         )}
 
-        {/* TOMBOL LIHAT SEMUA TENANT / SEMBUNYIKAN */}
         {hasMore && (
           <div className="market-action">
             <button
@@ -198,16 +203,20 @@ export default function Market() {
                   ? "Tampilkan Lebih Sedikit"
                   : `Lihat Semua Tenant (${filteredTenants.length})`}
               </span>
-              {showAll ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+
+              {showAll ? (
+                <ChevronUp size={18} />
+              ) : (
+                <ChevronDown size={18} />
+              )}
             </button>
           </div>
         )}
 
         <div className="market-bottom">
-          
-
           <span>
-            Menampilkan {displayedTenants.length} dari {filteredTenants.length} tenant
+            Menampilkan {displayedTenants.length} dari{" "}
+            {filteredTenants.length} tenant
           </span>
         </div>
       </div>

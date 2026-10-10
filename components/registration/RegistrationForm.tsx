@@ -33,9 +33,6 @@ export default function RegistrationForm() {
   const [downloadProof, setDownloadProof] =
     useState<File | null>(null);
 
-  const [rsvpProof, setRsvpProof] =
-    useState<File | null>(null);
-
   const [paymentProof, setPaymentProof] =
     useState<File | null>(null);
 
@@ -45,6 +42,8 @@ export default function RegistrationForm() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   const formRef = useRef<HTMLDivElement>(null);
+  const tactlinkRef = useRef<HTMLDivElement>(null);
+  const paymentRef = useRef<HTMLDivElement>(null);
 
   // Mengarahkan ke halaman /explore setelah 4.5 detik saat isSuccess bernilai true
   useEffect(() => {
@@ -59,23 +58,24 @@ export default function RegistrationForm() {
     return () => window.clearTimeout(timer);
   }, [isSuccess]);
 
-  function scrollToForm() {
-    setTimeout(() => {
-      formRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }, 80);
-  }
-
   function handleParticipantNext() {
     setCurrentStep(2);
-    scrollToForm();
+    setTimeout(() => {
+      tactlinkRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center', // Scroll pas di tengah section TactLink tanpa melompat ke atas halaman
+      });
+    }, 100);
   }
 
   function handleTactLinkNext() {
     setCurrentStep(3);
-    scrollToForm();
+    setTimeout(() => {
+      paymentRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center', // Scroll pas di tengah section Payment tanpa melompat ke atas halaman
+      });
+    }, 100);
   }
 
   async function handleSubmit() {
@@ -103,13 +103,6 @@ export default function RegistrationForm() {
         formData.append(
           'downloadProof',
           downloadProof
-        );
-      }
-
-      if (rsvpProof) {
-        formData.append(
-          'rsvpProof',
-          rsvpProof
         );
       }
 
@@ -167,24 +160,28 @@ export default function RegistrationForm() {
             />
 
             {currentStep >= 2 && (
-              <TactLinkSection
-                downloadProof={downloadProof}
-                downloaded={tactlinkDownloaded}
-                onDownloadProofChange={setDownloadProof}
-                onDownloadedChange={
-                  setTactlinkDownloaded
-                }
-                onNext={handleTactLinkNext}
-              />
+              <div ref={tactlinkRef}>
+                <TactLinkSection
+                  downloadProof={downloadProof}
+                  downloaded={tactlinkDownloaded}
+                  onDownloadProofChange={setDownloadProof}
+                  onDownloadedChange={
+                    setTactlinkDownloaded
+                  }
+                  onNext={handleTactLinkNext}
+                />
+              </div>
             )}
 
             {currentStep >= 3 && (
-              <PaymentSection
-                paymentProof={paymentProof}
-                onPaymentProofChange={setPaymentProof}
-                onSubmit={handleSubmit}
-                loading={loading}
-              />
+              <div ref={paymentRef}>
+                <PaymentSection
+                  paymentProof={paymentProof}
+                  onPaymentProofChange={setPaymentProof}
+                  onSubmit={handleSubmit}
+                  loading={loading}
+                />
+              </div>
             )}
           </div>
         </div>

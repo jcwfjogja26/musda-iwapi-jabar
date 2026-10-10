@@ -8,18 +8,23 @@ export default function WelcomePopup() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  // Sembunyikan popup jika user berada di halaman /registrasi atau /explore
-  if (pathname === "/registrasi" || pathname === "/explore") {
-    return null;
-  }
-
+  // Jalankan timer HANYA jika pengguna berada di landing page ("/")
   useEffect(() => {
+    if (pathname !== "/") {
+      return;
+    }
+
     const timer = window.setTimeout(() => {
       setIsOpen(true);
     }, 450);
 
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [pathname]);
+
+  // Blokir rendering jika berada di luar landing page ("/")
+  if (pathname !== "/") {
+    return null;
+  }
 
   const closePopup = () => {
     setIsOpen(false);

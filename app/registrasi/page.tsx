@@ -23,14 +23,14 @@ export default function RegistrationPage() {
           </p>
 
           <div className="registration-deadline-card">
-  <span className="deadline-label">
-    <Calendar size={13} />
-    BATAS PENDAFTARAN
-  </span>
-  <span className="deadline-time">
-    9 Nov 2026, 15.00 WIB
-  </span>
-</div>
+            <span className="deadline-label">
+              <Calendar size={13} />
+              BATAS PENDAFTARAN
+            </span>
+            <span className="deadline-time">
+              9 Nov 2026, 15.00 WIB
+            </span>
+          </div>
         </div>
 
         <div className="registration-hero-circle" />

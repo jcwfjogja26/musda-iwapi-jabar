@@ -23,6 +23,7 @@ interface PartnershipItem {
   title: string;
   description: string;
   icon: any;
+  featuredImage?: string; // Diubah menjadi single string untuk 1 foto utama
   points: PointItem[];
 }
 
@@ -34,14 +35,16 @@ const partnershipItems: PartnershipItem[] = [
     description:
       "Dukungan penempatan logo dan eksposur profil pengurus pada materi publikasi resmi Musda IWAPI Jawa Barat.",
     icon: Building2,
+    // Satu foto utama yang muncul di bagian paling atas dropdown
+    featuredImage: "/image/sponsor-banner.png", // Ganti dengan path foto utama Anda
     points: [
       {
         text: "Logo Perusahaan tayang di ½ Slide Infocus & tertera di Proposal (Rp 350.000,- untuk Internal + Umum)",
-        image: "/image/sponsorlogo.png", // Sesuaikan path lokasi gambar Anda
+        image: "/image/sponsorlogo.png",
       },
       {
         text: "Nama, Foto, dan Jabatan di IWAPI tertera di Baligo (Rp 1.000.000,- sudah termasuk fee Musda, tersebar di 30 Baligo se-Jawa Barat)",
-        image: "/image/sponsorbaligo.png", // Sesuaikan path lokasi gambar Anda
+        image: "/image/sponsorbaligo.png",
       },
     ],
   },
@@ -189,6 +192,34 @@ export default function Partnership() {
 
                 <div className="partnership-card-detail" aria-hidden={!isOpen}>
                   <div className="partnership-detail-inner">
+                    {/* FOTO UTAMA ATAS (Satu Foto Full Width) */}
+                    {/* FOTO UTAMA ATAS (DENGAN JARAK SPASI BAWAH YANG LEBIH LUAS) */}
+{/* FOTO UTAMA ATAS (DENGAN INLINE MARGIN-BOTTOM DIPAKSA 32PX) */}
+{item.featuredImage && (
+  <div 
+    className="w-full overflow-hidden rounded-xl border border-gray-200 shadow-sm"
+    style={{ 
+      position: 'relative', 
+      width: '100%', 
+      marginBottom: '32px' /* Mengunci jarak ke poin 1 agar merenggang dan tidak mepet */
+    }}
+  >
+    <img
+      src={item.featuredImage}
+      alt={`Dokumentasi ${item.title}`}
+      style={{
+        width: '100%',
+        height: 'auto',
+        maxHeight: '450px',
+        objectFit: 'contain',
+        borderRadius: '12px',
+        display: 'block'
+      }}
+    />
+  </div>
+)}
+
+                    {/* POIN-POIN SPONSORSHIP */}
                     {item.points.map((point, ptIdx) => (
                       <div
                         className="partnership-detail-point"

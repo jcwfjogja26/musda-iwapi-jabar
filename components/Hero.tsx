@@ -55,7 +55,7 @@ export default function Hero() {
               <Award size={16} />
               <span>PERIODE KEPENGURUSAN</span>
             </div>
-            <strong className="period-years">2027 — 2032</strong>
+            <strong className="period-years">2017 — 2026</strong>
           </div>
 
           <div className="hero-actions">

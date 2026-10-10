@@ -2,6 +2,7 @@
 
 import {
   Building2,
+  Bus,
   ChevronDown,
   ChevronUp,
   Hotel,
@@ -15,22 +16,23 @@ interface ExploreCardProps {
   category: string;
   title: string;
   description: string;
-  type: 'sponsor' | 'billboard' | 'hotel' | 'tenant';
+  type: 'sponsor' | 'billboard' | 'hotel' | 'tenant' | 'bandros';
   isOpen: boolean;
   onToggle: () => void;
 }
 
-// ⚠️ GANTI DENGAN NOMOR WHATSAPP ASLI (Format: 628xxxxxxxxxx)
+// ⚠️ NOMOR WHATSAPP CP
 const PHONE_FITRI = '6282126169071';
 const PHONE_AVIE = '6281221700050';
 const PHONE_RIKA = '62811245222';
 
-// Pemetaan Ikon yang dipastikan aman
+// Pemetaan Ikon
 const icons = {
   sponsor: Building2,
   billboard: Megaphone,
   hotel: Hotel,
   tenant: ShoppingBag,
+  bandros: Bus,
 };
 
 const detailContent = {
@@ -96,6 +98,22 @@ const detailContent = {
       { name: 'Ibu Avi', role: 'Tenant', phone: PHONE_AVIE },
     ],
   },
+
+  bandros: {
+    title: 'Wisata Bandros (Bandung Tour)',
+    description:
+      'Nikmati pengalaman keliling Kota Bandung dengan bus wisata ikonik Bandros (Bandung Tour on Bus) bagi para peserta MUSDA IWAPI.',
+    points: [
+      'Rute wisata mengelilingi ikon Kota Bandung',
+      'Pengalaman perjalanan yang seru dan unik',
+      'Cocok untuk city tour bersama kontingen/anggota',
+      'Informasi pemesanan dan jadwal melalui tim terkait',
+    ],
+    contacts: [
+      { name: 'Ibu Fitri', role: 'Wisata Bandros', phone: PHONE_FITRI },
+      { name: 'Ibu Avi', role: 'Wisata Bandros', phone: PHONE_AVIE },
+    ],
+  },
 };
 
 export default function ExploreCard({
@@ -107,7 +125,6 @@ export default function ExploreCard({
   isOpen,
   onToggle,
 }: ExploreCardProps) {
-  // Mencegah error crash jika ikon bernilai undefined
   const Icon = icons[type] || Building2;
   const detail = detailContent[type];
 

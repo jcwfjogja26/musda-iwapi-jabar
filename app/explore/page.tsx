@@ -9,6 +9,8 @@ const PHONE_FITRI = '6282126169071';
 const PHONE_AVI = '6281221700050';
 const PHONE_RIKA = '62811245222';
 
+type CardType = 'sponsor' | 'billboard' | 'hotel' | 'tenant' | 'bandros';
+
 const exploreItems = [
   {
     number: '01',
@@ -42,27 +44,27 @@ const exploreItems = [
       'Jelajahi berbagai usaha dan produk yang hadir dalam area tenant dan marketplace MUSDA IWAPI Jawa Barat.',
     type: 'tenant' as const,
   },
+  {
+    number: '05',
+    category: 'CITY TOUR & TRANSPORT',
+    title: 'Wisata Bandros',
+    description:
+      'Nikmati pengalaman seru berkeliling ikon Kota Bandung menggunakan bus wisata khas Bandros.',
+    type: 'bandros' as const,
+  },
 ];
 
 export default function ExplorePage() {
-  const [openCard, setOpenCard] = useState<
-    'sponsor' | 'billboard' | 'hotel' | 'tenant' | null
-  >(null);
+  const [openCard, setOpenCard] = useState<CardType | null>(null);
 
-  function toggleCard(
-    type: 'sponsor' | 'billboard' | 'hotel' | 'tenant'
-  ) {
-    setOpenCard((current) =>
-      current === type ? null : type
-    );
+  function toggleCard(type: CardType) {
+    setOpenCard((current) => (current === type ? null : type));
   }
 
   return (
     <main className="explore-page">
       <section className="explore-hero">
-        <div className="explore-hero-nav">
-          
-        </div>
+        <div className="explore-hero-nav"></div>
 
         <div className="explore-hero-inner">
           <div className="explore-eyebrow">
@@ -77,9 +79,9 @@ export default function ExplorePage() {
           </h1>
 
           <p>
-            Temukan berbagai informasi, peluang kolaborasi,
-            akomodasi, dan ruang usaha yang tersedia selama
-            MUSDA IWAPI Jawa Barat.
+            Temukan berbagai informasi, peluang kolaborasi, akomodasi, ruang
+            usaha, hingga layanan wisata yang tersedia selama MUSDA IWAPI Jawa
+            Barat.
           </p>
         </div>
 
@@ -99,9 +101,8 @@ export default function ExplorePage() {
           </div>
 
           <p>
-            Pilih salah satu kategori untuk melihat informasi
-            poin lebih lengkap dan temukan peluang yang sesuai
-            dengan kebutuhan Anda.
+            Pilih salah satu kategori untuk melihat informasi poin lebih
+            lengkap dan temukan peluang yang sesuai dengan kebutuhan Anda.
           </p>
         </div>
 
@@ -148,7 +149,15 @@ export default function ExplorePage() {
               <span>Contact Ibu Avi</span>
             </a>
 
-            
+            <a
+              href={`https://wa.me/${PHONE_RIKA}?text=Halo%20Rika,%20saya%20ingin%20bertanya%20mengenai%20MUSDA`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="explore-bottom-btn"
+            >
+              <MessageCircle size={16} />
+              <span>Contact Ibu Rika</span>
+            </a>
           </div>
         </div>
 

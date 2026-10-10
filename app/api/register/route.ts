@@ -1,24 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabaseServer';
 
-const BUCKET_NAME = 'registration-proofs';
+export const runtime = 'nodejs';
 
-function sanitizeFileName(fileName: string) {
-  return fileName
-    .toLowerCase()
-    .replace(/[^a-z0-9.-]/g, '-')
-    .replace(/-+/g, '-');
-}
+const BUCKET_NAME = 'registration-proofs';
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
+const ALLOWED_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+];
+
+type ProofFolder = 'download' | 'payment';
 
 async function uploadProof(
   file: File,
   registrationId: string,
-  folder: 'download' | 'rsvp' | 'payment'
+  folder: ProofFolder
 ) {
-  const fileExtension = file.name.split('.').pop() || 'jpg';
+  const extensionFromName = file.name.split('.').pop()?.toLowerCase();
 
-  const filePath = `${registrationId}/${folder}.${fileExtension}`;
+  const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp'];
 
+  const extension =
+    extensionFromName && allowedExtensions.includes(extensionFromName)
+      ? extensionFromName
+      : file.type === 'image/png'
+      ? 'png'
+      : file.type === 'image/webp'
+      ? 'webp'
+      : 'jpg';
+
+  const filePath = `${registrationId}/${folder}.${extension}`;
   const buffer = Buffer.from(await file.arrayBuffer());
 
   const { error } = await supabaseAdmin.storage
@@ -29,19 +43,20 @@ async function uploadProof(
     });
 
   if (error) {
-    throw new Error(`Upload ${folder} failed: ${error.message}`);
+    throw new Error(`Upload ${folder} ke Supabase gagal: ${error.message}`);
   }
 
-  return filePath;
+  return {
+    filePath,
+    base64: buffer.toString('base64'),
+    mimeType: file.type,
+    fileName: `${folder}.${extension}`,
+  };
 }
 
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
-
-    // ============================================
-    // DATA PESERTA
-    // ============================================
 
     const fullName = String(formData.get('fullName') || '').trim();
     const whatsapp = String(formData.get('whatsapp') || '').trim();
@@ -49,61 +64,17 @@ export async function POST(request: NextRequest) {
     const city = String(formData.get('city') || '').trim();
     const dpc = String(formData.get('dpc') || '').trim();
 
-    // ============================================
-    // TACTLINK
-    // ============================================
-
     const tactlinkDownloaded =
       formData.get('tactlinkDownloaded') === 'true';
 
     const downloadProof = formData.get('downloadProof');
-    const rsvpProof = formData.get('rsvpProof');
-
-    // ============================================
-    // PAYMENT
-    // ============================================
-
     const paymentProof = formData.get('paymentProof');
 
-    // ============================================
-    // VALIDATION
-    // ============================================
-
-    if (!fullName) {
+    if (!fullName || !whatsapp || !city || !dpc) {
       return NextResponse.json(
         {
           success: false,
-          message: 'Nama lengkap wajib diisi.',
-        },
-        { status: 400 }
-      );
-    }
-
-    if (!whatsapp) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Nomor WhatsApp wajib diisi.',
-        },
-        { status: 400 }
-      );
-    }
-
-    if (!city) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Kota asal wajib diisi.',
-        },
-        { status: 400 }
-      );
-    }
-
-    if (!dpc) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'DPC wajib dipilih.',
+          message: 'Nama, WhatsApp, kota, dan DPC wajib diisi.',
         },
         { status: 400 }
       );
@@ -113,8 +84,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            'Anda harus mengonfirmasi bahwa TactLink sudah diunduh.',
+          message: 'Konfirmasi unduhan TactLink wajib dilakukan.',
         },
         { status: 400 }
       );
@@ -130,16 +100,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!(rsvpProof instanceof File) || rsvpProof.size === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          message: 'Bukti RSVP TactLink wajib diunggah.',
-        },
-        { status: 400 }
-      );
-    }
-
     if (!(paymentProof instanceof File) || paymentProof.size === 0) {
       return NextResponse.json(
         {
@@ -150,35 +110,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // ============================================
-    // FILE VALIDATION
-    // ============================================
-
-    const maxFileSize = 5 * 1024 * 1024;
-
-    const allowedTypes = [
-      'image/jpeg',
-      'image/png',
-      'image/webp',
-    ];
-
-    const files = [
-      {
-        file: downloadProof,
-        label: 'Bukti download TactLink',
-      },
-      {
-        file: rsvpProof,
-        label: 'Bukti RSVP TactLink',
-      },
-      {
-        file: paymentProof,
-        label: 'Bukti pembayaran',
-      },
-    ];
-
-    for (const item of files) {
-      if (!allowedTypes.includes(item.file.type)) {
+    for (const item of [
+      { file: downloadProof, label: 'Bukti download TactLink' },
+      { file: paymentProof, label: 'Bukti pembayaran' },
+    ]) {
+      if (!ALLOWED_TYPES.includes(item.file.type)) {
         return NextResponse.json(
           {
             success: false,
@@ -188,7 +124,7 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      if (item.file.size > maxFileSize) {
+      if (item.file.size > MAX_FILE_SIZE) {
         return NextResponse.json(
           {
             success: false,
@@ -198,10 +134,6 @@ export async function POST(request: NextRequest) {
         );
       }
     }
-
-    // ============================================
-    // CREATE REGISTRATION
-    // ============================================
 
     const { data: registration, error: registrationError } =
       await supabaseAdmin
@@ -218,10 +150,7 @@ export async function POST(request: NextRequest) {
         .single();
 
     if (registrationError || !registration) {
-      console.error(
-        'Registration insert error:',
-        registrationError
-      );
+      console.error('Registration insert error:', registrationError);
 
       return NextResponse.json(
         {
@@ -236,54 +165,29 @@ export async function POST(request: NextRequest) {
 
     const registrationId = registration.id;
 
-    // ============================================
-    // UPLOAD FILES
-    // ============================================
-
-    const downloadPath = await uploadProof(
+    const download = await uploadProof(
       downloadProof,
       registrationId,
       'download'
     );
 
-    const rsvpPath = await uploadProof(
-      rsvpProof,
-      registrationId,
-      'rsvp'
-    );
-
-    const paymentPath = await uploadProof(
+    const payment = await uploadProof(
       paymentProof,
       registrationId,
       'payment'
     );
 
-    // ============================================
-    // SAVE FILE PATHS
-    // ============================================
-
     const { error: updateError } = await supabaseAdmin
       .from('registrations')
       .update({
-        tactlink_download_proof_url: downloadPath,
-        tactlink_rsvp_proof_url: rsvpPath,
-        payment_proof_url: paymentPath,
+        tactlink_download_proof_url: download.filePath,
+        payment_proof_url: payment.filePath,
       })
       .eq('id', registrationId);
 
     if (updateError) {
-      console.error(
-        'Registration file path update error:',
-        updateError
-      );
-
-      return NextResponse.json(
-        {
-          success: false,
-          message:
-            'Data berhasil dibuat tetapi file belum berhasil ditautkan.',
-        },
-        { status: 500 }
+      throw new Error(
+        `Path bukti gagal disimpan ke database: ${updateError.message}`
       );
     }
 
@@ -295,6 +199,11 @@ export async function POST(request: NextRequest) {
       success: true,
       message: 'Registrasi berhasil.',
       registrationCode: registration.registration_code,
+      data: {
+        registration_code: registration.registration_code,
+        tactlink_download_proof_url: download.filePath,
+        payment_proof_url: payment.filePath,
+      },
     });
   } catch (error) {
     console.error('Registration API error:', error);
@@ -302,7 +211,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: false,
-        message: 'Terjadi kesalahan pada server.',
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Terjadi kesalahan pada server.',
       },
       { status: 500 }
     );
