@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Calendar, MapPin, Award } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -21,6 +22,21 @@ export default function Hero() {
             <strong>JAWA BARAT</strong>
           </h1>
 
+          {/* SUB-HEADING TANGGAL & VENUE */}
+          
+{/* 2 KARTU PILL TERPISAH (TANGGAL & LOKASI) */}
+<div className="hero-event-pills">
+  <div className="hero-event-pill">
+    <Calendar size={15} />
+    <span>Rabu, 18 November 2026</span>
+  </div>
+
+  <div className="hero-event-pill">
+    <MapPin size={15} />
+    <span>Grand Asrilia Hotel - Bandung</span>
+  </div>
+</div>
+
           {/* CARD POSTER MUSDA */}
           <div className="hero-poster-card">
             <Image
@@ -33,30 +49,13 @@ export default function Hero() {
             />
           </div>
 
-          <div className="hero-theme">
-            <span>TEMA MUSDA 2026</span>
-
-            <p>
-              Memperkuat fondasi transformasi digital ekonomi perempuan
-              pengusaha menuju <strong>Jabar Istimewa.</strong>
-            </p>
-          </div>
-
-          <div className="hero-information">
-            <div className="hero-information-card">
-              <span>TANGGAL</span>
-              <strong>18 NOVEMBER 2026</strong>
+          {/* CARD PERIODE ELEGAN (HANYA PERIODE) */}
+          <div className="hero-period-highlight">
+            <div className="period-badge">
+              <Award size={16} />
+              <span>PERIODE KEPENGURUSAN</span>
             </div>
-
-            <div className="hero-information-card">
-              <span>WILAYAH</span>
-              <strong>JAWA BARAT</strong>
-            </div>
-
-            <div className="hero-information-card">
-              <span>PERIODE</span>
-              <strong>2027 — 2032</strong>
-            </div>
+            <strong className="period-years">2027 — 2032</strong>
           </div>
 
           <div className="hero-actions">

@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
 import Image from "next/image";
-import { MessageCircle, Target, UsersRound } from "lucide-react";
+import { MessageCircle, Target, Users, UsersRound } from "lucide-react";
 
 const functions = [
   {
@@ -25,67 +24,7 @@ const functions = [
   },
 ];
 
-const gallery = [
-  {
-    title: "Musda IWAPI",
-    label: "MOMENT",
-    className: "gallery-one",
-    image: "/image/g1.png", // Ganti path foto kamu di public/image/
-  },
-  {
-    title: "Kegiatan Organisasi",
-    label: "ACTIVITY",
-    className: "gallery-two",
-    image: "/image/g2.png", // Ganti path foto kamu di public/image/
-  },
-  {
-    title: "Women in Business",
-    label: "COMMUNITY",
-    className: "gallery-three",
-    image: "/image/g3.png", // Ganti path foto kamu di public/image/
-  },
-  {
-    title: "Kolaborasi",
-    label: "NETWORK",
-    className: "gallery-four",
-    image: "/image/g4.png", // Ganti path foto kamu di public/image/
-  },
-  {
-    title: "Jabar Bergerak",
-    label: "IMPACT",
-    className: "gallery-five",
-    image: "/image/g5.png", // Ganti path foto kamu di public/image/
-  },
-];
-
 export default function About() {
-  // State untuk melacak indeks foto yang sedang aktif saat digeser di mobile
-  const [activeIndex, setActiveIndex] = useState(0);
-  const galleryRef = useRef<HTMLDivElement>(null);
-
-  // Handler untuk mendeteksi posisi scroll horizontal dan memindahkan dot aktif
-  const handleScroll = () => {
-    if (galleryRef.current) {
-      const { scrollLeft, clientWidth } = galleryRef.current;
-      if (clientWidth > 0) {
-        const newIndex = Math.round(scrollLeft / clientWidth);
-        setActiveIndex(newIndex);
-      }
-    }
-  };
-
-  // Handler saat dot diklik langsung untuk scroll ke foto tujuan
-  const scrollToSlide = (index: number) => {
-    if (galleryRef.current) {
-      const clientWidth = galleryRef.current.clientWidth;
-      galleryRef.current.scrollTo({
-        left: index * clientWidth,
-        behavior: "smooth",
-      });
-      setActiveIndex(index);
-    }
-  };
-
   return (
     <section className="about-v2" id="tentang">
       <div className="section-container">
@@ -162,71 +101,48 @@ export default function About() {
           </div>
         </div>
 
-        {/* GALLERY HEADER */}
-        <div className="gallery-header">
+        {/* KEPENGURUSAN HEADER (JARAK ATAS DIPERKETAT DI TSX) */}
+        <div className="gallery-header" style={{ marginTop: "32px" }}>
           <div>
-            <span className="section-kicker">MOMENTS</span>
+            <span className="section-kicker">KEPENGURUSAN</span>
 
             <h3>
-              Jejak <em>perjalanan</em> IWAPI.
+              Pengurus <em>IWAPI</em> Jawa Barat.
             </h3>
           </div>
 
-          <span className="gallery-count">05 — MOMENTS</span>
+          <span className="gallery-count">DPD IWAPI JABAR</span>
         </div>
 
-        {/* CONTAINER GALLERY DENGAN DETEKSI SCROLL */}
-        <div
-          className="about-gallery"
-          ref={galleryRef}
-          onScroll={handleScroll}
-        >
-          {gallery.map((item, index) => (
-            <article
-              className={`gallery-card ${item.className}`}
-              key={item.title}
-            >
-              <div className={`gallery-image gallery-image-${index + 1}`}>
-                {/* KOMPONEN GAMBAR NEXT.JS */}
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  style={{ objectFit: "cover" }}
-                  priority={index === 0}
-                />
+        {/* SINGLE FEATURED CARD KEPENGURUSAN (JARAK KE JUDUL DIPERDAPAT 12PX) */}
+        <div className="kepengurusan-card-wrapper" style={{ marginTop: "12px" }}>
+          <article className="kepengurusan-card">
+            <div className="kepengurusan-image-container">
+              <Image
+                src="/image/foto1.png" // Ganti path foto kepengurusan kamu di public/image/
+                alt="Kepengurusan DPD IWAPI Jawa Barat"
+                width={1200}
+                height={675}
+                priority
+                className="kepengurusan-img"
+              />
 
-                <div className="gallery-image-overlay" />
+              <div className="kepengurusan-overlay" />
+            </div>
 
-                <span className="gallery-number">0{index + 1}</span>
-
-                <span className="gallery-hover-label">{item.label}</span>
+            <div className="kepengurusan-card-info">
+              <div>
+                <strong>Kepengurusan DPD IWAPI Jawa Barat</strong>
               </div>
-
-              <div className="gallery-card-info">
-                <span>{item.label}</span>
-                <strong>{item.title}</strong>
-              </div>
-            </article>
-          ))}
+              <p>
+                Sinergi perempuan pengusaha dalam mendorong pertumbuhan ekonomi dan transformasi digital di Jawa Barat.
+              </p>
+            </div>
+          </article>
         </div>
 
-        {/* INDIKATOR DOTS INTERAKTIF MOBILE */}
-        <div className="gallery-dots">
-          {gallery.map((_, idx) => (
-            <button
-              key={idx}
-              type="button"
-              onClick={() => scrollToSlide(idx)}
-              className={`gallery-dot ${idx === activeIndex ? "active" : ""}`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* SMALL SECTION MARKER */}
-        <div className="about-bottom-mark">
+        {/* SMALL SECTION MARKER (JARAK BAWAH DIPERKETAT) */}
+        <div className="about-bottom-mark" style={{ marginTop: "28px" }}>
           <span />
           <p>Perempuan pengusaha, satu ruang untuk bertumbuh bersama.</p>
           <span />
