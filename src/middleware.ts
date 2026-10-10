@@ -57,4 +57,4 @@ export async function middleware(request: NextRequest) {
 // Menentukan rute mana saja yang diproteksi oleh middleware
 export const config = {
   matcher: ['/admin/:path*'],
-};
+}; 
