@@ -86,7 +86,7 @@ export default function BandrosTour() {
           <div className="bandros-visual">
             <div className="visual-wrapper">
               <Image
-                src="/image/bandrostour.png"
+                src="/image/bandros-tour.png"
                 alt="Tour on the Bandros Bandung"
                 width={500}
                 height={600}
