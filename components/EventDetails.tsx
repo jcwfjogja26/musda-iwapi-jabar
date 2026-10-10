@@ -106,7 +106,7 @@ export default function EventDetails() {
           </div>
 
           <p className="promo-text">
-            Daftar sebelum tanggal <strong>9 November 2026, 15.00 WIB</strong> untuk mendapatkan <strong>Free Goodie Bag eksklusif</strong> MUSDA IWAPI Jawa Barat!
+            Daftar sebelum tanggal <strong>9 November 2026, 15.00 WIB</strong> untuk mendapatkan <strong>Free Goodie Bag eksklusif</strong> MUSDA IWAPI Jawa Barat
           </p>
         </div>
       </div>
