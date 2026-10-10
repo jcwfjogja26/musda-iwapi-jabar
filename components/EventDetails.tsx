@@ -23,8 +23,8 @@ const details = [
   {
     icon: MapPin,
     label: "LOKASI",
-    title: "Jawa Barat",
-    description: "Venue diumumkan resmi",
+    title: "Grand Asrilia Hotel",
+    description: "Bandung, Jawa Barat",
   },
   {
     icon: UsersRound,
@@ -57,7 +57,7 @@ export default function EventDetails() {
           </p>
         </div>
 
-        {/* 1. AGENDA UTAMA (JARAK DIKECILKAN KE 12PX) */}
+        {/* 1. AGENDA UTAMA */}
         <div className="event-period" style={{ marginBottom: "12px" }}>
           <span>AGENDA UTAMA</span>
 
@@ -67,7 +67,7 @@ export default function EventDetails() {
           </div>
         </div>
 
-        {/* 2. GRID 4 KARTU DETAIL (GAP DILANTAI JADI 12PX) */}
+        {/* 2. GRID 4 KARTU DETAIL */}
         <div className="event-detail-grid" style={{ marginTop: "0", gap: "12px" }}>
           {details.map((item) => {
             const Icon = item.icon;
@@ -91,7 +91,7 @@ export default function EventDetails() {
           })}
         </div>
 
-        {/* 3. BANNER DEADLINE & BENEFIT GOODIE BAG (JARAK ATAS DIKECILKAN KE 12PX) */}
+        {/* 3. BANNER DEADLINE & BENEFIT GOODIE BAG */}
         <div className="event-registration-promo" style={{ marginTop: "12px" }}>
           <div className="promo-badge-group">
             <span className="promo-badge-deadline">
