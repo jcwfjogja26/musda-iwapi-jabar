@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
+import VerifiedParticipants from '@/components/VerifiedParticipants';
 import About from "../components/About";
 import EventDetails from "../components/EventDetails";
 import Market from "../components/Market";
@@ -17,6 +18,7 @@ export default function Home() {
     <main>
       <Navbar />
       <Hero />
+      <VerifiedParticipants />
       <About />
       <EventDetails />
       <Market />

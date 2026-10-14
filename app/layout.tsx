@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import WelcomePopup from "@/components/WelcomePopup";
+import MarsIWAPIPlayer from "@/components/MarsIWAPIPlayer";
 
 export const metadata: Metadata = {
   title: "MUSDA IWAPI Jawa Barat",
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body>
         {children}
         <WelcomePopup />
+        <MarsIWAPIPlayer />
       </body>
     </html>
   );

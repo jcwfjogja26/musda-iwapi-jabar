@@ -9385,3 +9385,522 @@ main {
   color: #64748b;
   pointer-events: none;
 }
+
+/* ============================================
+   SECTION PESERTA TERDAFTAR - REFINED MOBILE & VECTOR CURVES
+   ============================================ */
+
+.verified-participants {
+  position: relative;
+  overflow: hidden;
+  padding: 56px 0 64px;
+  background: #f1f6fc;
+  color: #072a4a;
+  border-top: 1px solid #d8e5f5;
+  border-bottom: 1px solid #d8e5f5;
+}
+
+/* DOT GRID TEXTURE */
+.participants-dot-texture {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0, 102, 204, 0.12) 1.2px, transparent 1.2px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* VECTOR CURVES (PROPORIONAL UNTUK DESKTOP) */
+.vector-curve-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 180px;
+  background: rgba(224, 242, 254, 0.75);
+  border-radius: 0 0 0 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.vector-curve-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  height: 160px;
+  background: rgba(219, 234, 254, 0.65);
+  border-radius: 0 100% 0 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.verified-participants-inner {
+  position: relative;
+  z-index: 2;
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* TOP BAR LAYOUT */
+.participants-top-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.participants-header-left {
+  max-width: 600px;
+}
+
+.participants-eyebrow-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.participants-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #0066cc;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.participants-count-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  background: #ffffff;
+  border: 1px solid #bae6fd;
+  border-radius: 999px;
+  font-size: 11px;
+  color: #576b80;
+  box-shadow: 0 2px 6px rgba(0, 102, 204, 0.04);
+}
+
+.participants-count-chip strong {
+  color: #0066cc;
+  font-size: 12px;
+}
+
+/* FONT TYPOGRAPHY MUSDA SERIF SLIM */
+.musda-title {
+  margin: 0 0 8px;
+  font-family: var(--serif), "Playfair Display", Georgia, serif;
+  font-size: clamp(30px, 3.8vw, 42px);
+  font-weight: 400; /* Slim & Ramping */
+  line-height: 1.15;
+  color: #072a4a;
+  letter-spacing: -0.015em;
+}
+
+.musda-title em {
+  font-style: italic;
+  font-weight: 400;
+  color: #0066cc;
+}
+
+.participants-desc {
+  margin: 0;
+  color: #576b80;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* TOMBOL DAFTAR */
+.participants-header-right {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn-register-mini {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 11px 20px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #0088ff 0%, #0052cc 100%);
+  color: #ffffff;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 102, 204, 0.25);
+}
+
+.btn-register-mini:hover {
+  background: linear-gradient(135deg, #0099ff 0%, #0066ff 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 102, 204, 0.35);
+}
+
+/* ============================================
+   CONTAINER & MARQUEE WRAPPERS
+   ============================================ */
+
+.participants-centered-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 6px 0;
+}
+
+.participants-track-static {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.participants-marquee-wrapper {
+  overflow: hidden;
+  width: 100%;
+  padding: 6px 0;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+
+.participants-track {
+  display: flex;
+  width: max-content;
+}
+
+.participants-track.is-rolling {
+  animation: light-marquee 30s linear infinite;
+}
+
+.participants-track.is-rolling:hover {
+  animation-play-state: paused;
+}
+
+.participants-track-group {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+/* KARTU PESERTA ROYAL GLASS */
+.royal-glass-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 240px;
+  max-width: 300px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #072a4a 0%, #0052cc 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 22px rgba(7, 42, 74, 0.15);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.royal-glass-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 102, 204, 0.28);
+  border-color: #38bdf8;
+}
+
+.royal-card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.participant-name {
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.participant-dpc {
+  overflow: hidden;
+  color: #7dd3fc;
+  font-size: 11px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.royal-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+/* EMPTY STATE */
+.participants-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 32px 20px;
+  background: #ffffff;
+  border: 1px dashed #7dd3fc;
+  border-radius: 16px;
+  color: #576b80;
+  font-size: 13px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 102, 204, 0.04);
+}
+
+.participants-empty-state strong {
+  color: #072a4a;
+  font-size: 14px;
+}
+
+@keyframes light-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================
+   PENYESUAIAN RESPOSIF MOBILE KHUSUS (TIDAK BERTABRAKAN)
+   ============================================ */
+
+@media (max-width: 768px) {
+  .verified-participants {
+    padding: 36px 0 40px;
+  }
+
+  /* Blob Diperkecil Agar Tidak Bertabrakan di Tengah */
+  .vector-curve-top {
+    width: 140px;
+    height: 100px;
+    opacity: 0.6;
+  }
+
+  .vector-curve-bottom {
+    width: 130px;
+    height: 90px;
+    opacity: 0.5;
+  }
+
+  .participants-top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .participants-header-left {
+    width: 100%;
+  }
+
+  .participants-header-right {
+    width: 100%;
+  }
+
+  .btn-register-mini {
+    width: 100%;
+    justify-content: center;
+    padding: 10px 16px;
+  }
+
+  .royal-glass-card {
+    min-width: 220px;
+    padding: 11px 15px;
+  }
+}
+
+
+/* =========================================
+   FLOATING MARS IWAPI SPEAKER
+   Compact size — desktop & mobile
+========================================= */
+
+.mars-floating-button {
+  position: fixed;
+  right: 22px;
+  bottom: 24px;
+  z-index: 9999;
+
+  width: 54px;
+  height: 54px;
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    transform 0.2s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease,
+    color 0.25s ease;
+}
+
+/* Hover */
+.mars-floating-button:hover {
+  transform: scale(1.06);
+}
+
+/* Keyboard accessibility */
+.mars-floating-button:focus-visible {
+  outline: 2px solid #d9a441;
+  outline-offset: 3px;
+}
+
+/* AUDIO ON */
+.mars-floating-button.is-playing {
+  color: #ffffff;
+  background: linear-gradient(
+    145deg,
+    #37b8d2 0%,
+    #1764a9 100%
+  );
+
+  border-color: rgba(255, 255, 255, 0.25);
+
+  box-shadow:
+    0 0 0 4px rgba(55, 184, 210, 0.12);
+
+  animation: mars-speaker-pulse 2.2s ease-in-out infinite;
+}
+
+/* AUDIO OFF */
+.mars-floating-button.is-muted {
+  color: #2855a0;
+  background: #e9eef9;
+  border-color: #dce5f7;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Speaker icon */
+.mars-floating-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.mars-floating-icon svg {
+  width: 23px;
+  height: 23px;
+  stroke-width: 2.5;
+}
+
+/* Small decorative circle above the speaker */
+.mars-floating-dots {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+
+  width: 24px;
+  height: 24px;
+
+  display: grid;
+  grid-template-columns: repeat(3, 3px);
+  grid-template-rows: repeat(3, 3px);
+  align-content: center;
+  justify-content: center;
+  gap: 2px;
+
+  border-radius: 50%;
+  background: #b4c6e9;
+
+  box-shadow:
+    0 1px 4px rgba(0, 0, 0, 0.12);
+
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.mars-floating-dots i {
+  display: block;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #637b9f;
+}
+
+/* Subtle animation while audio is playing */
+@keyframes mars-speaker-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 4px rgba(55, 184, 210, 0.12);
+  }
+
+  50% {
+    box-shadow: 0 0 0 7px rgba(55, 184, 210, 0.04);
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .mars-floating-button {
+    right: 16px;
+    bottom: 20px;
+
+    width: 48px;
+    height: 48px;
+  }
+
+  .mars-floating-icon svg {
+    width: 21px;
+    height: 21px;
+  }
+
+  .mars-floating-dots {
+    top: -22px;
+
+    width: 21px;
+    height: 21px;
+
+    grid-template-columns: repeat(3, 2.5px);
+    grid-template-rows: repeat(3, 2.5px);
+    gap: 2px;
+  }
+
+  .mars-floating-dots i {
+    width: 2.5px;
+    height: 2.5px;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .mars-floating-button {
+    animation: none !important;
+    transition: none;
+  }
+}
