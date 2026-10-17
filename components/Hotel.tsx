@@ -12,7 +12,7 @@ const hotels = [
     price: "Rp 500.000",
     note: "/ malam",
     pax: "2 Pax (1 Malam 2 Hari)",
-    image: "/image/twin.png", // Ganti path gambar kamar kamu
+    image: "/image/twin.png",
   },
   {
     name: "Hotel Asrilia Bandung",
@@ -20,7 +20,7 @@ const hotels = [
     price: "Rp 550.000",
     note: "/ malam",
     pax: "2 Pax (1 Malam 2 Hari)",
-    image: "/image/hollywood.png", // Ganti path gambar kamar kamu
+    image: "/image/hollywood.png",
   },
   {
     name: "Hotel Asrilia Bandung",
@@ -28,12 +28,11 @@ const hotels = [
     price: "Rp 650.000",
     note: "/ malam",
     pax: "2 Pax (1 Malam 2 Hari)",
-    image: "/image/king.png", // Ganti path gambar kamar kamu
+    image: "/image/king.png",
   },
 ];
 
 export default function Hotel() {
-  // State untuk menyimpan data kamar yang gambarnya sedang di-preview
   const [selectedImage, setSelectedImage] = useState<{
     url: string;
     title: string;
@@ -102,7 +101,6 @@ export default function Hotel() {
             <span>LOUNGE</span>
           </div>
 
-          {/* DUA CARD TAMBAHAN: KOLAM RENANG & WATERBOOM */}
           <div className="hotel-image hotel-image-item">
             <Image
               src="/image/kolam.png"
@@ -134,7 +132,6 @@ export default function Hotel() {
           <div className="hotel-pricing">
             {hotels.map((hotel) => (
               <article className="hotel-price-card" key={hotel.type}>
-                {/* THUMBNAIL GAMBAR KAMAR BISA DIKLIK */}
                 <div
                   className="hotel-card-image-wrapper"
                   onClick={() =>
@@ -200,19 +197,33 @@ export default function Hotel() {
             <h3>Ingin reservasi atau butuh informasi kamar?</h3>
 
             <p>
-              Hubungi Contact Person <strong>Ibu Rika</strong> untuk
-              mendapatkan konfirmasi ketersediaan dan pemesanan kamar.
+              Hubungi Contact Person resmi di bawah ini untuk mendapatkan
+              konfirmasi ketersediaan dan pemesanan kamar.
             </p>
 
-            <a
-              href="https://wa.me/62811245222?text=Halo%20Ibu%20Rika,%20saya%20ingin%20tanya%20informasi%20booking%20kamar%20Hotel%20Asrilia%20untuk%20Musda%20IWAPI."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="button-primary"
-            >
-              Hubungi Ibu Rika
-              <MessageCircle size={16} />
-            </a>
+            <div className="hotel-contact-actions" style={{ display: "flex", gap: "12px", flexWrap: "wrap", marginTop: "16px" }}>
+              <a
+                href="https://wa.me/62811245222?text=Halo%20Ibu%20Rika,%20saya%20ingin%20tanya%20informasi%20booking%20kamar%20Hotel%20Asrilia%20untuk%20Musda%20IWAPI."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button-primary"
+                style={{ flex: 1, minWidth: "160px", justifyContent: "center" }}
+              >
+                Ibu Rika
+                <MessageCircle size={16} />
+              </a>
+
+              <a
+                href="https://wa.me/6282262292323?text=Halo%20Ibu%20Inggit,%20saya%20ingin%20tanya%20informasi%20booking%20kamar%20Hotel%20Asrilia%20untuk%20Musda%20IWAPI."
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button-primary"
+                style={{ flex: 1, minWidth: "160px", justifyContent: "center" }}
+              >
+                Ibu Inggit
+                <MessageCircle size={16} />
+              </a>
+            </div>
           </div>
         </div>
       </div>
