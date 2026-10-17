@@ -2,14 +2,18 @@
 
 import { useRef, useState } from "react";
 import { Volume2, VolumeX } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export default function MarsIWAPIPlayer() {
+  const pathname = usePathname();
+
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   async function toggleAudio() {
     const audio = audioRef.current;
+
     if (!audio || isLoading) return;
 
     if (isPlaying) {
@@ -29,6 +33,10 @@ export default function MarsIWAPIPlayer() {
       setIsLoading(false);
     }
   }
+
+  // Tampilkan hanya di landing page utama.
+  // Tidak tampil di admin, registrasi, atau explore.
+  if (pathname !== "/") return null;
 
   return (
     <>
@@ -53,6 +61,7 @@ export default function MarsIWAPIPlayer() {
         }
         aria-pressed={isPlaying}
         title={isPlaying ? "Matikan Mars IWAPI" : "Putar Mars IWAPI"}
+        disabled={isLoading}
       >
         <span className="mars-floating-icon">
           {isPlaying ? (
