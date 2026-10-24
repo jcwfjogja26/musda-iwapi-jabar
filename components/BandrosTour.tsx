@@ -43,10 +43,7 @@ export default function BandrosTour() {
       date: "17 November 2026",
       sessions: ["13.00 - 15.00 WIB", "15.00 - 17.00 WIB"],
     },
-    {
-      date: "19 November 2026",
-      sessions: ["08.00 - 10.00 WIB", "10.00 - 12.00 WIB"],
-    },
+    
   ];
 
   // Data Contact Person Ibu Fitri & Ibu Avi
