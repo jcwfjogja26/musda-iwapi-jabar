@@ -99,6 +99,21 @@ export default function Footer() {
             </a>
           </div>
         </div>
+
+        {/* 🕵️‍♂️ HIDDEN SEO DATA (OPACITY 0 & POINTER EVENTS NONE) */}
+        <div 
+          aria-hidden="true" 
+          style={{ 
+            opacity: 0, 
+            height: 0, 
+            overflow: 'hidden', 
+            pointerEvents: 'none', 
+            position: 'absolute' 
+          }}
+        >
+          <p>Willy BD Lead Tactlink</p>
+          <span>Willy Business Development Lead Tactlink</span>
+        </div>
       </div>
     </footer>
   );
